@@ -1,0 +1,109 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+}
+
+.background-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 0;
+}
+
+.stars, .twinkling, .clouds {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 0;
+}
+
+.stars {
+    background: black url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/stars.png") repeat;
+    z-index: 0;
+}
+
+.twinkling {
+    width: 10000px;
+    background: transparent url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/twinkling.png") repeat;
+    background-size: 1000px 1000px;
+    z-index: 1;
+    animation: move-background 70s linear infinite;
+}
+
+.clouds {
+    width: 10000px;
+    background: transparent url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/clouds_repeat.png") repeat;
+    background-size: 1000px 1000px;
+    z-index: 2;
+    animation: move-background 150s linear infinite;
+}
+
+@keyframes move-background {
+    from {
+        transform: translate3d(0px, 0px, 0px);
+    }
+    to {
+        transform: translate3d(-1000px, 0px, 0px);
+    }
+}
+
+img {
+    height: 70vh;
+    width: 70vh;
+    position: absolute;
+    z-index: 4; 
+    right: 20px;
+    top: 50px;
+}
+
+.video-container {
+    position: relative;
+    width: 80%; 
+    max-width: 800px;
+    margin: 0 auto;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+iframe {
+    width: 100%; 
+    height: 450px; 
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+}
+
+.nav-button {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    font-size: 30px;
+    border: none;
+    cursor: pointer;
+    padding: 20px;
+    z-index: 11;
+    border-radius: 50%;
+    transition: background-color 0.3s;
+}
+
+.left {
+    left: -70px;
+}
+
+.right {
+    right: -70px;
+}
+
+.nav-button:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
