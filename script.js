@@ -1,8 +1,8 @@
 
 const videos = [
-    "https://youtu.be/iRxtoCY4fc0?si=7EGHyyEHaPjTJytu", 
-    "https://youtu.be/O59EzVgvI3A?si=K8hO6cA6qoPNJIFW",
-    "https://www.youtube.com/embed/VIDEO_ID_3https://youtu.be/8R9FJa_PV0Y?si=n-wXbeoXVA2WIDBA" 
+    "https://www.youtube.com/embed/iRxtoCY4fc0?si=pzHPMPM3pQE6sGk9", 
+    "https://www.youtube.com/embed/O59EzVgvI3A?si=bn3-ElS-RFfb_Z7e",
+    "https://www.youtube.com/embed/8R9FJa_PV0Y?si=n-wXbeoXVA2WIDBA" 
 ];
 let currentVideoIndex = 0;
 
