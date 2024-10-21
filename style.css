@@ -85,8 +85,8 @@ iframe {
 
 .nav-button {
     position: absolute;
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
+    background-color: rgba(244, 243, 243, 0.5);
+    color: rgb(17, 18, 17);
     font-size: 30px;
     border: none;
     cursor: pointer;
@@ -106,4 +106,29 @@ iframe {
 
 .nav-button:hover {
     background-color: rgba(0, 0, 0, 0.8);
+}
+
+.slider-container {
+    position: absolute; /* Maak de positie absoluut */
+    left: 50%; /* Begin in het midden */
+    bottom: 50px; /* Zet de schuiver iets boven de onderkant van het scherm */
+    transform: translateX(-50%); /* Verschuif naar links met de helft van de breedte om te centreren */
+    width: 80%; /* Breedte van de schuiver */
+    z-index: 10; /* Zorg ervoor dat de schuiver boven de achtergrond ligt */
+}
+
+
+.slider {
+    width: 100%;
+}
+
+.ball {
+    position: absolute;
+    top: -15px; /* Adjust based on your design */
+    width: 30px;
+    height: 30px;
+    background-color: #3498db; /* Ball color */
+    border-radius: 50%;
+    transition: left 0.1s ease-in-out; /* Smooth transition */
+    display: none; /* Initially hidden */
 }

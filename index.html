@@ -8,27 +8,25 @@
 </head>
 <body>
 
-   
-    <div class="background-container">
-        
-        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/moon2.png" alt="Maan">
-        
-        <div class="stars"></div>
-        <div class="twinkling"></div>
-        <div class="clouds"></div>
+<div class="background-container">
+    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/moon2.png" alt="Maan">
+    <div class="stars"></div>
+    <div class="twinkling"></div>
+    <div class="clouds"></div>
 
-        
-        <div class="video-container">
-            <button class="nav-button left" onclick="prevVideo()">←</button>
-            <iframe id="videoPlayer" width="800" height="450" src="https://www.youtube.com/embed/iRxtoCY4fc0?si=pzHPMPM3pQE6sGk9" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-            <button class="nav-button right" onclick="nextVideo()">→</button>
-        </div>
-        
-        </div>
+    <div class="video-container">
+        <button class="nav-button left" onclick="prevVideo()">←</button>
+        <iframe id="videoPlayer" width="800" height="450" src="https://www.youtube.com/embed/iRxtoCY4fc0?si=pzHPMPM3pQE6sGk9" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        <button class="nav-button right" onclick="nextVideo()">→</button>
     </div>
 
-    
-    <script src="script.js"></script>
+    <div class="slider-container">
+        <input type="range" id="slider" class="slider" min="0" max="4" value="0">
+        <div class="ball" id="ball"></div> <!-- Hide the ball initially -->
+    </div>
+</div>
+
+<script src="script.js"></script>
 
 </body>
 </html>
