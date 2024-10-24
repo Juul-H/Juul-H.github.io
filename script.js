@@ -33,7 +33,7 @@ function prevVideo() {
     updateVideo();
 }
 
-
+ //test dat iets veranderd
 
 // zet de index video naar de dichtbezijnde waar de slider is 
 slider.addEventListener('input', (e) => {
