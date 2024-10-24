@@ -4,9 +4,9 @@ const videos = [
     "https://www.youtube.com/embed/8R9FJa_PV0Y?si=n-wXbeoXVA2WIDBA",
     "https://www.youtube.com/embed/1lszpNisyQI?si=Dza8eDl6UAlySJwm",
     "https://www.youtube.com/embed/Y8kTZiGptsM?si=mnyebYyo4gdNz7mr"
-];
+]; // videos
 
-let currentVideoIndex = 0;
+let currentVideoIndex = 0; //
 const videoPlayer = document.getElementById('videoPlayer');
 const slider = document.getElementById('slider');
 const ball = document.getElementById('ball');
