@@ -9,16 +9,17 @@ const videos = [
 let currentVideoIndex = 0;
 const videoPlayer = document.getElementById('videoPlayer');
 const slider = document.getElementById('slider');
-const ball = document.getElementById('ball');
+
 
 // Function to update video based on the current index
 function updateVideo() {
     videoPlayer.src = videos[currentVideoIndex];
     slider.value = currentVideoIndex; // Update slider value
-    moveBall(); // Move ball to the correct position
+    // moveBall(); // Move ball to the correct position
 }
 
 // Function to move the ball based on slider value
+/** 
 function moveBall() {
     const sliderWidth = slider.offsetWidth;
     const max = slider.max;
@@ -29,6 +30,7 @@ function moveBall() {
     ball.style.left = leftPosition + 'px';
     ball.style.display = 'block'; // Show the ball when slider is used
 }
+*/
 
 // Next video function
 function nextVideo() {
@@ -43,10 +45,24 @@ function prevVideo() {
 }
 
 // Initialize ball position and hide it initially
-moveBall();
+//moveBall();
 
-// Update video when slider is changed
 slider.addEventListener('input', (e) => {
-    currentVideoIndex = parseInt(e.target.value); // Get the slider value
-    updateVideo(); // Update the video based on the slider
+    
+    const value = parseFloat(e.target.value);
+    const closestIndex = Math.round(value); 
+    currentVideoIndex = closestIndex; 
+    videoPlayer.src = videos[currentVideoIndex]; 
 });
+
+// Update the slider when it is released
+slider.addEventListener('change', (e) => {
+    const value = parseFloat(e.target.value);
+    const closestIndex = Math.round(value); 
+    currentVideoIndex = closestIndex; 
+    slider.value = currentVideoIndex; 
+    videoPlayer.src = videos[currentVideoIndex]; 
+});
+
+
+updateVideo();
