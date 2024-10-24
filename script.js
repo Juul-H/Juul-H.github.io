@@ -1,52 +1,41 @@
+// linkjes van de videos
 const videos = [
     "https://www.youtube.com/embed/iRxtoCY4fc0?si=pzHPMPM3pQE6sGk9", 
     "https://www.youtube.com/embed/O59EzVgvI3A?si=bn3-ElS-RFfb_Z7e",
     "https://www.youtube.com/embed/8R9FJa_PV0Y?si=n-wXbeoXVA2WIDBA",
     "https://www.youtube.com/embed/1lszpNisyQI?si=Dza8eDl6UAlySJwm",
     "https://www.youtube.com/embed/Y8kTZiGptsM?si=mnyebYyo4gdNz7mr"
-]; // videos
+]; 
 
-let currentVideoIndex = 0; //
-const videoPlayer = document.getElementById('videoPlayer');
-const slider = document.getElementById('slider');
+let currentVideoIndex = 0; //eerste index 
+const videoPlayer = document.getElementById('videoPlayer') //id van het videoplayer element
+const slider = document.getElementById('slider'); //id van de het slider element
 
 
-// Function to update video based on the current index
+// toont de video op de bepaalde video index
 function updateVideo() {
     videoPlayer.src = videos[currentVideoIndex];
-    slider.value = currentVideoIndex; // Update slider value
-    // moveBall(); // Move ball to the correct position
+    slider.value = currentVideoIndex; 
+    
 }
 
-// Function to move the ball based on slider value
-/** 
-function moveBall() {
-    const sliderWidth = slider.offsetWidth;
-    const max = slider.max;
-    const min = slider.min;
-    const value = slider.value;
 
-    const leftPosition = ((value - min) / (max - min)) * (sliderWidth - 30);
-    ball.style.left = leftPosition + 'px';
-    ball.style.display = 'block'; // Show the ball when slider is used
-}
-*/
 
-// Next video function
+// maakt de video index met 1 hoger
 function nextVideo() {
     currentVideoIndex = (currentVideoIndex + 1) % videos.length;
     updateVideo();
 }
 
-// Previous video function
+// maakt de video index met 1 lager
 function prevVideo() {
     currentVideoIndex = (currentVideoIndex - 1 + videos.length) % videos.length;
     updateVideo();
 }
 
-// Initialize ball position and hide it initially
-//moveBall();
 
+
+// zet de index video naar de dichtbezijnde waar de slider is 
 slider.addEventListener('input', (e) => {
     
     const value = parseFloat(e.target.value);
@@ -55,7 +44,7 @@ slider.addEventListener('input', (e) => {
     videoPlayer.src = videos[currentVideoIndex]; 
 });
 
-// Update the slider when it is released
+// veranderd de slider naar de juiste positie wanneer de slider wordt losgelaten
 slider.addEventListener('change', (e) => {
     const value = parseFloat(e.target.value);
     const closestIndex = Math.round(value); 

@@ -76,11 +76,13 @@ img {
     transform: translateY(-50%);
 }
 
+
 iframe {
     width: 100%; 
     height: 450px; 
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+    
 }
 
 .nav-button {
@@ -109,12 +111,12 @@ iframe {
 }
 
 .slider-container {
-    position: absolute; /* Maak de positie absoluut */
-    left: 50%; /* Begin in het midden */
-    bottom: 50px; /* Zet de schuiver iets boven de onderkant van het scherm */
-    transform: translateX(-50%); /* Verschuif naar links met de helft van de breedte om te centreren */
-    width: 80%; /* Breedte van de schuiver */
-    z-index: 10; /* Zorg ervoor dat de schuiver boven de achtergrond ligt */
+    position: absolute; 
+    left: 50%; 
+    bottom: 50px; 
+    transform: translateX(-50%); 
+    width: 80%;
+    z-index: 10; 
 }
 
 
@@ -123,13 +125,4 @@ iframe {
     transition: all 0.3s ease;
 }
 
-.ball {
-    position: absolute;
-    top: -15px; /* Adjust based on your design */
-    width: 30px;
-    height: 30px;
-    background-color: #3498db; /* Ball color */
-    border-radius: 50%;
-    transition: left 0.1s ease-in-out; /* Smooth transition */
-    display: none; /* Initially hidden */
-}
+

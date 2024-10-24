@@ -1,35 +1,35 @@
 <!DOCTYPE html> <!-- type van het bestand -->
-<html lang="en"> <!-- taal -->
-<head> <!-- hoofd van document, algemene dingen -->
+<html lang="en"> <!-- taal van de website-->
+<head> <!-- hoofd van document, favicon, stylesheet koppelen, titel,...-->
     <meta charset="UTF-8"> <!-- gebruikte format -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <title>paraFOAM ruimte koppen</title> <!-- titel -->
     <link rel="stylesheet" href="style.css"> <!-- link naar css voor opmaak -->
-    <link rel="icon" href="rb_117406.png" type="image/x-icon">
+    <link rel="icon" href="rb_117406.png" type="image/x-icon"> <!-- favicon -->
 </head>
-<body> <!-- lichaam, ruggengraat -->
+<body> <!-- plaats waar alle elementen thuis horen -->
 
 <div class="background-container"> <!-- klasse achtergrond -->
-    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/moon2.png" alt="Maan"> <!-- achtergrond zelf -->
-    <div class="stars"></div> <!-- klasses van voorwerpen in de achtergrond -->
-    <div class="twinkling"></div>
-    <div class="clouds"></div>
+    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/moon2.png" alt="Maan"> <!-- foto van de maan -->
+    <div class="stars"></div> <!-- sterretjes-->
+    <div class="twinkling"></div> <!-- png template om de sterretjes te latten flikkeren -->
+    <div class="clouds"></div> <!-- png afbeelding van de wolken-->
 
     <div class="video-container"> <!-- klasse voor videos -->
-        <!--<button class="nav-button left" onclick="prevVideo()">←</button>  links knop -->
+        <button class="nav-button left" onclick="prevVideo()">←</button>  <!-- linkse knop -->
         <iframe id="videoPlayer" width="800" height="450"
          src="https://www.youtube.com/embed/iRxtoCY4fc0?si=pzHPMPM3pQE6sGk9" frameborder="0"
          allow="autoplay; encrypted-media" allowfullscreen></iframe> <!-- eerste video die popupt -->
-    <!--<button class="nav-button right" onclick="nextVideo()">→</button>  rechts knop -->
+    <button class="nav-button right" onclick="nextVideo()">→</button>  <!-- rechtse knop -->
     </div>
 
-    <div class="slider-container">
-        <input type="range" id="slider" class="slider" min="0" max="4" value="0" step="0.01">
+    <div class="slider-container"> 
+        <input type="range" id="slider" class="slider" min="0" max="4" value="0" step="0.01"> <!--slider -->
         
     </div>
 </div>
 
-<script src="script.js"></script> <!-- javascript bestand als source script -->
+<script src="script.js"></script> <!-- link met het javascript bestand -->
 
 </body>
 </html>
