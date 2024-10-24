@@ -15,18 +15,14 @@
     <div class="twinkling"></div> <!-- png template om de sterretjes te latten flikkeren -->
     <div class="clouds"></div> <!-- png afbeelding van de wolken-->
 
-    <div class="video-container"> <!-- klasse voor videos -->
-        <button class="nav-button left" onclick="prevVideo()">←</button>  <!-- linkse knop -->
-        <iframe id="videoPlayer" width="800" height="450"
-         src="https://www.youtube.com/embed/iRxtoCY4fc0?si=pzHPMPM3pQE6sGk9" frameborder="0"
-         allow="autoplay; encrypted-media" allowfullscreen></iframe> <!-- eerste video die popupt -->
-    <button class="nav-button right" onclick="nextVideo()">→</button>  <!-- rechtse knop -->
+    <div class="player-container">
+        <video id="videoPlayer" width="640" height="360" src="auto.mp4"></video>
+        <div class="controls">
+            <input type="range" id="slider" class="slider" min="0" max="100" value="0">
+            <button id="playPauseBtn" class="play-btn">Play</button>
+        </div>
     </div>
 
-    <div class="slider-container"> 
-        <input type="range" id="slider" class="slider" min="0" max="4" value="0" step="0.01"> <!--slider -->
-        
-    </div>
 </div>
 
 <script src="script.js"></script> <!-- link met het javascript bestand -->
