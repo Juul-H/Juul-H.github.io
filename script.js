@@ -1,30 +1,51 @@
-const video = document.getElementById('videoPlayer');
-    const slider = document.getElementById('slider');
-    const playPauseBtn = document.getElementById('playPauseBtn');
+const videoPlayer = document.getElementById('videoPlayer');
+const progressSlider = document.getElementById('progressSlider');
+const playPauseBtn = document.getElementById('playPauseBtn');
+const videoSwitchSlider = document.getElementById('videoSwitchSlider');
 
-    let isPlaying = false;
-    let intervalId;
+let isPlaying = false;
+const videos = ['auto.mp4', 'Motor.mp4'];
+let currentVideoIndex = 0;
 
-    // update de slider als de video speelt
-    video.addEventListener('timeupdate', () => {
-        const value = (video.currentTime / video.duration) * 100;
-        slider.value = value;
-    });
+function updateVideoSource() {
+    videoPlayer.src = videos[currentVideoIndex];
+    progressSlider.value = 0;
+}
 
-    // update de video als de slider wordt aangepast
-    slider.addEventListener('input', (e) => {
-        const time = (e.target.value / 100) * video.duration;
-        video.currentTime = time;
-    });
+videoPlayer.addEventListener('timeupdate', () => {
+    const value = (videoPlayer.currentTime / videoPlayer.duration) * 100;
+    progressSlider.value = value;
+});
 
-    // play/pause knop
-    playPauseBtn.addEventListener('click', () => {
-        if (isPlaying) {
-            video.pause();
-            playPauseBtn.textContent = 'Play';
-        } else {
-            video.play();
-            playPauseBtn.textContent = 'Pause';
-        }
-        isPlaying = !isPlaying;
-    });
+progressSlider.addEventListener('input', (e) => {
+    const time = (e.target.value / 100) * videoPlayer.duration;
+    videoPlayer.currentTime = time;
+});
+
+playPauseBtn.addEventListener('click', () => {
+    if (isPlaying) {
+        videoPlayer.pause();
+        playPauseBtn.textContent = 'Play';
+    } else {
+        videoPlayer.play();
+        playPauseBtn.textContent = 'Pause';
+    }
+    isPlaying = !isPlaying;
+});
+
+videoSwitchSlider.addEventListener('input', (e) => {
+    const percentage = parseFloat(e.target.value) / 100;
+    const newIndex = Math.round(percentage * (videos.length - 1));
+    if (newIndex !== currentVideoIndex) {
+        currentVideoIndex = newIndex;
+        updateVideoSource();
+    }
+});
+
+function updateVideoSwitchSliderMax() {
+    videoSwitchSlider.max = 100;
+    videoSwitchSlider.step = 0.1;
+}
+
+updateVideoSource();
+updateVideoSwitchSliderMax();
