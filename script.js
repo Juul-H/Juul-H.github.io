@@ -1,57 +1,51 @@
-// linkjes van de videos
-const videos = [
-    "https://www.youtube.com/embed/iRxtoCY4fc0?si=pzHPMPM3pQE6sGk9", 
-    "https://www.youtube.com/embed/O59EzVgvI3A?si=bn3-ElS-RFfb_Z7e",
-    "https://www.youtube.com/embed/8R9FJa_PV0Y?si=n-wXbeoXVA2WIDBA",
-    "https://www.youtube.com/embed/1lszpNisyQI?si=Dza8eDl6UAlySJwm",
-    "https://www.youtube.com/embed/Y8kTZiGptsM?si=mnyebYyo4gdNz7mr"
-]; 
+const videoPlayer = document.getElementById('videoPlayer');
+const progressSlider = document.getElementById('progressSlider');
+const playPauseBtn = document.getElementById('playPauseBtn');
+const videoSwitchSlider = document.getElementById('videoSwitchSlider');
 
-let currentVideoIndex = 0; //eerste index 
-const videoPlayer = document.getElementById('videoPlayer') //id van het videoplayer element
-const slider = document.getElementById('slider'); //id van de het slider element
+let isPlaying = false;
+const videos = ['auto.mp4', 'Motor.mp4'];
+let currentVideoIndex = 0;
 
-
-// toont de video op de bepaalde video index
-function updateVideo() {
+function updateVideoSource() {
     videoPlayer.src = videos[currentVideoIndex];
-    slider.value = currentVideoIndex; 
-    
+    progressSlider.value = 0;
 }
 
-
-
-// maakt de video index met 1 hoger
-function nextVideo() {
-    currentVideoIndex = (currentVideoIndex + 1) % videos.length;
-    updateVideo();
-}
-
-// maakt de video index met 1 lager
-function prevVideo() {
-    currentVideoIndex = (currentVideoIndex - 1 + videos.length) % videos.length;
-    updateVideo();
-}
-
- //test dat iets veranderd
-
-// zet de index video naar de dichtbezijnde waar de slider is 
-slider.addEventListener('input', (e) => {
-    
-    const value = parseFloat(e.target.value);
-    const closestIndex = Math.round(value); 
-    currentVideoIndex = closestIndex; 
-    videoPlayer.src = videos[currentVideoIndex]; 
+videoPlayer.addEventListener('timeupdate', () => {
+    const value = (videoPlayer.currentTime / videoPlayer.duration) * 100;
+    progressSlider.value = value;
 });
 
-// veranderd de slider naar de juiste positie wanneer de slider wordt losgelaten
-slider.addEventListener('change', (e) => {
-    const value = parseFloat(e.target.value);
-    const closestIndex = Math.round(value); 
-    currentVideoIndex = closestIndex; 
-    slider.value = currentVideoIndex; 
-    videoPlayer.src = videos[currentVideoIndex]; 
+progressSlider.addEventListener('input', (e) => {
+    const time = (e.target.value / 100) * videoPlayer.duration;
+    videoPlayer.currentTime = time;
 });
 
+playPauseBtn.addEventListener('click', () => {
+    if (isPlaying) {
+        videoPlayer.pause();
+        playPauseBtn.textContent = 'Play';
+    } else {
+        videoPlayer.play();
+        playPauseBtn.textContent = 'Pause';
+    }
+    isPlaying = !isPlaying;
+});
 
-updateVideo();
+videoSwitchSlider.addEventListener('input', (e) => {
+    const percentage = parseFloat(e.target.value) / 100;
+    const newIndex = Math.round(percentage * (videos.length - 1));
+    if (newIndex !== currentVideoIndex) {
+        currentVideoIndex = newIndex;
+        updateVideoSource();
+    }
+});
+
+function updateVideoSwitchSliderMax() {
+    videoSwitchSlider.max = 100;
+    videoSwitchSlider.step = 0.1;
+}
+
+updateVideoSource();
+updateVideoSwitchSliderMax();
