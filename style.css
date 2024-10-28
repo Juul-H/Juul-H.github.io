@@ -76,6 +76,7 @@ img {
     display: flex;
     align-items: center;
     margin-top: 10px;
+    width: 50%;
 }
 
 .sliders-container {
@@ -100,7 +101,7 @@ img {
     color: #fff;
     border: none;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 20px;
 }
 
 .play-btn:hover {
