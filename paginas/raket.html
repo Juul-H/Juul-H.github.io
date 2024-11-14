@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rocket Nose Simulation</title>
+    <link rel="stylesheet" href="../style.css"> <!-- Link to common styles -->
+    <link rel="stylesheet" href="raket.css"> <!-- Link to raket-specific styles (optional) -->
+    <link rel="icon" href="favicon.ico.png" type="image/x-icon">
+</head>
+<body>
+
+    <!-- Same background container as in index.html -->
+    <div class="background-container">
+        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/moon2.png" alt="Maan">
+        <div class="stars"></div>
+        <div class="twinkling"></div>
+        <div class="clouds"></div>
+    </div>
+
+    <header>
+        <nav>
+            <a href="../index.html" class="clean-button">Go to Home Page</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <!-- Rocket Template (Drag-and-Drop Area) -->
+            <div id="rocket-template" class="rocket-template" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <h2>Rocket Nose Template</h2>
+                <p>Drag a rocket nose to the template!</p>
+            </div>
+
+            <!-- Rocket Nose Selection -->
+            <div class="nose-selection">
+                <h3>Select a Rocket Nose</h3>
+                <div class="nose" id="nose1" draggable="true" ondragstart="drag(event)">
+                    <img src="nose1.png" alt="Rocket Nose 1">
+                </div>
+                <div class="nose" id="nose2" draggable="true" ondragstart="drag(event)">
+                    <img src="nose2.png" alt="Rocket Nose 2">
+                </div>
+                <div class="nose" id="nose3" draggable="true" ondragstart="drag(event)">
+                    <img src="nose3.png" alt="Rocket Nose 3">
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../script.js"></script>
+</body>
+</html>
