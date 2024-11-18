@@ -1,16 +1,25 @@
-/* Rocket Page Specific Styles */
+/* Algemeen stijlen voor de body */
 body {
     background-color: #111;
     color: #fff;
     font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
 }
 
+/* Container voor rakettemplate en neus-selectie */
 .container {
     display: flex;
-    justify-content: space-around;
-    margin-top: 50px;
+    justify-content: center; /* Raketten in het midden */
+    align-items: center;     /* Verticaal gecentreerd */
+    gap: 20px; /* Voegt ruimte toe tussen de rakettemplate en de neus-selectie */
+    width: 100%;
 }
 
+/* De rakettemplate zelf */
 .rocket-template {
     width: 300px;
     height: 500px;
@@ -24,28 +33,44 @@ body {
     overflow: hidden;
 }
 
+/* De neus-selectie aan de linkerzijde */
 .nose-selection {
     display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+    flex-direction: column; /* Zet de neuzen verticaal onder elkaar */
+    justify-content: flex-start; /* Begin bovenaan */
     width: 200px;
+    position: absolute;
+    left: 20px; /* Plaats de neus-selectie helemaal aan de linkerzijde */
+    top: 50%; /* Zet het verticaal in het midden */
+    transform: translateY(-50%); /* Zorg ervoor dat de neus-selectie precies gecentreerd is in de hoogte */
 }
 
+/* Styling voor de neuzen */
 .nose {
     margin-bottom: 20px;
-    padding: 10px;
+    width: 100px; /* De breedte van de neus is 100px */
+    height: 100px; /* De hoogte van de neus is ook 100px, zodat het vierkant is */
     border: 2px solid #222;
     border-radius: 5px;
     background-color: #fff;
     cursor: pointer;
     text-align: center;
+    overflow: hidden; /* Zorg ervoor dat de afbeelding netjes binnen de neus past */
 }
 
+/* Afbeeldingen van de neuzen */
 .nose img {
     width: 100%;
-    height: auto;
+    height: 100%; /* De afbeelding neemt de volledige hoogte en breedte van het vierkante vakje in */
+    object-fit: cover; /* Zorgt ervoor dat de afbeelding de container volledig bedekt */
 }
 
+/* Hover-effect voor de neuzen */
 .nose:hover {
     background-color: #f0f0f0;
+}
+
+/* Kopteksten styling */
+h2, h3 {
+    color: #333;
 }

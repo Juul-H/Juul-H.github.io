@@ -51,26 +51,17 @@ updateVideoSource();
 updateVideoSwitchSliderMax();
 
 // Allow the rocket nose images to be dragged
-function drag(event) {
-    event.dataTransfer.setData("text", event.target.id);
-}
-
-// Allow drop in the rocket template area
 function allowDrop(event) {
     event.preventDefault();
 }
 
-// Handle the dropping of the nose image into the template
+function drag(event) {
+    event.dataTransfer.setData("text", event.target.id);
+}
+
 function drop(event) {
     event.preventDefault();
-    var data = event.dataTransfer.getData("text");
-    var droppedNose = document.getElementById(data);
-
-    // Clone the image and append it to the rocket template
-    var clone = droppedNose.cloneNode(true);
-    clone.style.position = "absolute";
-    clone.style.top = "50%"; // Adjust positioning as needed
-    clone.style.left = "50%";
-    clone.style.transform = "translate(-50%, -50%)";
-    document.getElementById("rocket-template").appendChild(clone);
+    const data = event.dataTransfer.getData("text");
+    const element = document.getElementById(data);
+    event.target.appendChild(element);
 }
