@@ -36,33 +36,36 @@ body {
 /* De neus-selectie aan de linkerzijde */
 .nose-selection {
     display: flex;
-    flex-direction: column; /* Zet de neuzen verticaal onder elkaar */
-    justify-content: flex-start; /* Begin bovenaan */
-    width: 200px;
-    position: absolute;
-    left: 20px; /* Plaats de neus-selectie helemaal aan de linkerzijde */
-    top: 50%; /* Zet het verticaal in het midden */
-    transform: translateY(-50%); /* Zorg ervoor dat de neus-selectie precies gecentreerd is in de hoogte */
+    flex-direction: column; /* Plaats de neuzen verticaal onder elkaar */
+    justify-content: space-evenly; /* Verdeel de neuzen gelijkmatig */
+    align-items: center; /* Centreer de neuzen horizontaal */
+    height: 300px; /* Specifieke hoogte voor de kolom */
+    width: 200px; /* Breedte van de kolom */
+    position: absolute; /* Absolute positionering voor de neus-selectie */
+    left: 20px; /* Zorg ervoor dat de neus-selectie aan de linkerzijde staat */
+    top: 50%; /* Plaats de neus-selectie verticaal in het midden */
+    transform: translateY(-50%); /* Zorg ervoor dat de neus-selectie precies gecentreerd is */
+    background-color: rgba(0, 0, 0, 0.2); /* Debugkleur */
 }
 
 /* Styling voor de neuzen */
 .nose {
-    margin-bottom: 20px;
-    width: 100px; /* De breedte van de neus is 100px */
-    height: 100px; /* De hoogte van de neus is ook 100px, zodat het vierkant is */
+    width: 100px; /* Breedte van elk vakje */
+    height: 100px; /* Hoogte van elk vakje */
     border: 2px solid #222;
     border-radius: 5px;
     background-color: #fff;
-    cursor: pointer;
-    text-align: center;
-    overflow: hidden; /* Zorg ervoor dat de afbeelding netjes binnen de neus past */
+    overflow: hidden;
+    display: flex; /* Om de afbeelding in het midden te plaatsen */
+    justify-content: center; /* Horizontaal centreren */
+    align-items: center; /* Verticaal centreren */
 }
 
 /* Afbeeldingen van de neuzen */
 .nose img {
-    width: 100%;
-    height: 100%; /* De afbeelding neemt de volledige hoogte en breedte van het vierkante vakje in */
-    object-fit: cover; /* Zorgt ervoor dat de afbeelding de container volledig bedekt */
+    width: 100%; /* Zorg dat de afbeelding in het vakje past */
+    height: 100%;
+    object-fit: cover;
 }
 
 /* Hover-effect voor de neuzen */
@@ -73,4 +76,9 @@ body {
 /* Kopteksten styling */
 h2, h3 {
     color: #333;
+}
+
+.nose1 {
+
+    
 }

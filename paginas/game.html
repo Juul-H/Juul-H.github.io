@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raket Race met Obstakels</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        #gameCanvas {
+            border: 1px solid black;
+            background-color: #e0e0e0;
+        }
+        #rocketSelection {
+            display: flex;
+            margin-top: 10px;
+            gap: 10px;
+            justify-content: center;
+        }
+        .rocket-option {
+            width: 40px;
+            height: 60px;
+            cursor: pointer;
+            border: 1px solid black;
+        }
+        .rocket-option img {
+            width: 100%;
+            height: 100%;
+        }
+        #winner {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div id="chooseRocketText">Kies een raket voor Speler 1:</div>
+    <div id="rocketSelection">
+        <div class="rocket-option" id="rocket1" onclick="selectRocket('red', 'player1')">
+            <img src="https://via.placeholder.com/40x60/ff0000/ffffff?text=R1" alt="Rocket 1">
+        </div>
+        <div class="rocket-option" id="rocket2" onclick="selectRocket('blue', 'player1')">
+            <img src="https://via.placeholder.com/40x60/0000ff/ffffff?text=R2" alt="Rocket 2">
+        </div>
+        <div class="rocket-option" id="rocket3" onclick="selectRocket('green', 'player1')">
+            <img src="https://via.placeholder.com/40x60/00ff00/ffffff?text=R3" alt="Rocket 3">
+        </div>
+        <div class="rocket-option" id="rocket4" onclick="selectRocket('yellow', 'player1')">
+            <img src="https://via.placeholder.com/40x60/ffff00/ffffff?text=R4" alt="Rocket 4">
+        </div>
+        <div class="rocket-option" id="rocket5" onclick="selectRocket('purple', 'player1')">
+            <img src="https://via.placeholder.com/40x60/800080/ffffff?text=R5" alt="Rocket 5">
+        </div>
+    </div>
+    
+    <div id="chooseRocketText2" style="display: none;">Kies een raket voor Speler 2:</div>
+    <div id="rocketSelection2" style="display: none;">
+        <div class="rocket-option" id="rocket1" onclick="selectRocket('red', 'player2')">
+            <img src="https://via.placeholder.com/40x60/ff0000/ffffff?text=R1" alt="Rocket 1">
+        </div>
+        <div class="rocket-option" id="rocket2" onclick="selectRocket('blue', 'player2')">
+            <img src="https://via.placeholder.com/40x60/0000ff/ffffff?text=R2" alt="Rocket 2">
+        </div>
+        <div class="rocket-option" id="rocket3" onclick="selectRocket('green', 'player2')">
+            <img src="https://via.placeholder.com/40x60/00ff00/ffffff?text=R3" alt="Rocket 3">
+        </div>
+        <div class="rocket-option" id="rocket4" onclick="selectRocket('yellow', 'player2')">
+            <img src="https://via.placeholder.com/40x60/ffff00/ffffff?text=R4" alt="Rocket 4">
+        </div>
+        <div class="rocket-option" id="rocket5" onclick="selectRocket('purple', 'player2')">
+            <img src="https://via.placeholder.com/40x60/800080/ffffff?text=R5" alt="Rocket 5">
+        </div>
+    </div>
+
+    <canvas id="gameCanvas" width="640" height="480"></canvas>
+    <p id="winner"></p>
+
+    <script>
+        // Game variables
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+
+        let player1Rocket = { x: 200, y: 380, color: "red", speed: 5, width: 40, height: 60 };
+        let player2Rocket = { x: 400, y: 380, color: "blue", speed: 5, width: 40, height: 60 };
+        let keysPressed = { z: false, q: false, d: false, ArrowUp: false, ArrowLeft: false, ArrowRight: false };
+        let gameOver = false;
+        let obstacles = [];
+        let player1Selected = false;
+        let player2Selected = false;
+
+        // Rocket speeds based on their position (from left to right)
+        const rocketSpeeds = {
+            red: 5,
+            blue: 6,
+            green: 7,
+            yellow: 8,
+            purple: 10
+        };
+
+        // Function to draw rockets
+        function drawRocket(rocket) {
+            ctx.fillStyle = rocket.color;
+            ctx.fillRect(rocket.x, rocket.y, rocket.width, rocket.height);  // x, y, width, height
+        }
+
+        // Function to generate obstacles
+        function generateObstacles() {
+            if (Math.random() < 0.02) {
+                let x = Math.random() * (canvas.width - 30);  // Random x position
+                obstacles.push({ x: x, y: 0, width: 30, height: 30, speed: 2 });
+            }
+        }
+
+        // Function to draw obstacles
+        function drawObstacles() {
+            ctx.fillStyle = "green";
+            obstacles.forEach((obstacle) => {
+                ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+            });
+        }
+
+        // Update obstacles' position
+        function updateObstacles() {
+            obstacles.forEach((obstacle) => {
+                obstacle.y += obstacle.speed;
+            });
+
+            // Remove obstacles that pass the bottom
+            obstacles = obstacles.filter((obstacle) => obstacle.y < canvas.height);
+        }
+
+        // Check if rocket collides with an obstacle
+        function checkCollision(rocket) {
+            for (let i = 0; i < obstacles.length; i++) {
+                let o = obstacles[i];
+                if (rocket.x < o.x + o.width &&
+                    rocket.x + rocket.width > o.x &&
+                    rocket.y < o.y + o.height &&
+                    rocket.y + rocket.height > o.y) {
+                    return true;  // Collision detected
+                }
+            }
+            return false;
+        }
+
+        // Check if there is a winner
+        function checkWinner() {
+            if (player1Rocket.y <= 0) {
+                document.getElementById("winner").innerText = "🚀 Speler 1 wint!";
+                gameOver = true;
+            } else if (player2Rocket.y <= 0) {
+                document.getElementById("winner").innerText = "🚀 Speler 2 wint!";
+                gameOver = true;
+            }
+        }
+
+        // Update rockets' position
+        function update() {
+            if (!gameOver) {
+                // Blue rocket (pijltjestoetsen)
+                if (keysPressed.ArrowUp && player2Rocket.color === "blue") player2Rocket.y -= player2Rocket.speed;
+                if (keysPressed.ArrowLeft && player2Rocket.color === "blue") player2Rocket.x -= player2Rocket.speed;
+                if (keysPressed.ArrowRight && player2Rocket.color === "blue") player2Rocket.x += player2Rocket.speed;
+
+                // Red rocket (Z, Q, D)
+                if (keysPressed.z && player1Rocket.color === "red") player1Rocket.y -= player1Rocket.speed;
+                if (keysPressed.q && player1Rocket.color === "red") player1Rocket.x -= player1Rocket.speed;
+                if (keysPressed.d && player1Rocket.color === "red") player1Rocket.x += player1Rocket.speed;
+
+                // Check for collisions with obstacles
+                if (checkCollision(player1Rocket) || checkCollision(player2Rocket)) {
+                    gameOver = true;
+                    document.getElementById("winner").innerText = "💥 Game Over!";
+                }
+
+                // Generate and update obstacles
+                generateObstacles();
+                updateObstacles();
+                checkWinner();
+            }
+        }
+
+        // Draw all game elements
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawRocket(player1Rocket);
+            drawRocket(player2Rocket);
+            drawObstacles();
+        }
+
+        // Game loop
+        function gameLoop() {
+            update();
+            draw();
+            if (!gameOver) requestAnimationFrame(gameLoop);
+        }
+
+        // Handle keydown events
+        window.addEventListener("keydown", (e) => {
+            if (e.key === "ArrowUp") keysPressed.ArrowUp = true;
+            if (e.key === "ArrowLeft") keysPressed.ArrowLeft = true;
+            if (e.key === "ArrowRight") keysPressed.ArrowRight = true;
+            if (e.key === "z") keysPressed.z = true;
+            if (e.key === "q") keysPressed.q = true;
+            if (e.key === "d") keysPressed.d = true;
+        });
+
+        // Handle keyup events
+        window.addEventListener("keyup", (e) => {
+            if (e.key === "ArrowUp") keysPressed.ArrowUp = false;
+            if (e.key === "ArrowLeft") keysPressed.ArrowLeft = false;
+            if (e.key === "ArrowRight") keysPressed.ArrowRight = false;
+            if (e.key === "z") keysPressed.z = false;
+            if (e.key === "q") keysPressed.q = false;
+            if (e.key === "d") keysPressed.d = false;
+        });
+
+        // Function to select a rocket
+        function selectRocket(color, player) {
+            if (player === 'player1' && !player1Selected) {
+                player1Rocket.color = color;
+                player1Rocket.speed = rocketSpeeds[color];
+                player1Selected = true;
+                document.getElementById("chooseRocketText").innerText = "Kies een raket voor Speler 2:";
+                document.getElementById("rocketSelection").style.display = 'none';
+                document.getElementById("rocketSelection2").style.display = 'flex';
+            } else if (player === 'player2' && !player2Selected) {
+                player2Rocket.color = color;
+                player2Rocket.speed = rocketSpeeds[color];
+                player2Selected = true;
+
+                // Start game once both players have selected their rockets
+                if (player1Selected && player2Selected) {
+                    document.getElementById("chooseRocketText2").style.display = 'none';
+                    document.getElementById("rocketSelection2").style.display = 'none';
+                    gameLoop();  // Start the game loop
+                }
+            }
+        }
+    </script>
+</body>
+</html>

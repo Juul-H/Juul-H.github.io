@@ -70,6 +70,8 @@ img {
     z-index: 10;
     transform: translateY(40%);
     position: relative;
+    
+
 }
 
 .controls {
@@ -77,6 +79,7 @@ img {
     align-items: center;
     margin-top: 10px;
     width: 50%;
+    
 }
 
 .sliders-container {
@@ -96,6 +99,31 @@ img {
 .clean-button {
     display: inline-block;
     padding: 10px 20px;
+    margin: 0;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    position: fixed;
+    z-index: 1000;
+    top: 10px;
+    left: 10px;
+}
+
+.clean-button:hover {
+    background-color: #45a049;
+}
+
+.clean-button:active {
+    transform: scale(0.95);
+}
+
+.play-btn {
+    display: inline-block;
+    padding: 10px 20px;
     margin: 10px;
     background-color: #4CAF50;
     color: white;
@@ -106,12 +134,4 @@ img {
     cursor: pointer;
     position: relative;
     z-index: 1000;
-}
-
-.clean-button:hover {
-    background-color: #45a049;
-}
-
-.clean-button:active {
-    transform: scale(0.95);
 }
