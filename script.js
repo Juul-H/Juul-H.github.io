@@ -65,3 +65,28 @@ function drop(event) {
     const element = document.getElementById(data);
     event.target.appendChild(element);
 }
+
+// Voeg deze functie toe aan je script.js
+function updateLeaderboard() {
+    const leaderboard = [
+        { rank: 1, name: "Player 1", score: 150 },
+        { rank: 2, name: "Player 2", score: 120 },
+        { rank: 3, name: "Player 3", score: 100 }
+    ];
+
+    const tableBody = document.querySelector("#leaderboard-table tbody");
+    tableBody.innerHTML = ''; // Clear the existing table rows
+
+    leaderboard.forEach((player) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+            <td>${player.rank}</td>
+            <td>${player.name}</td>
+            <td>${player.score}</td>
+        `;
+        tableBody.appendChild(row);
+    });
+}
+
+// Roep updateLeaderboard() aan om de leaderboard bij te werken bij het laden van de pagina
+window.onload = updateLeaderboard;

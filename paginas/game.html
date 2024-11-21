@@ -44,49 +44,89 @@
             font-weight: bold;
             color: #333;
         }
+
+        .clean-button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 0;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            position: fixed;
+            z-index: 1000;
+            top: 10px;
+            left: 10px;
+        }  
+        
+        #restartButton {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            position: absolute;
+            bottom: 20px;
+            z-index: 100;
+            border: none ;
+        }
+
     </style>
 </head>
+<nav>
+    <a href="../index.html" class="clean-button">Go to Home</a>
+</nav>
 <body>
     <div id="chooseRocketText">Kies een raket voor Speler 1:</div>
     <div id="rocketSelection">
-        <div class="rocket-option" onclick="selectRocket(5, 'red', 'player1')">
+        <div class="rocket-option" onclick="selectRocket(1, 'red', 'player1')">
             <img src="https://via.placeholder.com/40x60/ff0000/ffffff?text=R1" alt="Rocket 1">
         </div>
-        <div class="rocket-option" onclick="selectRocket(6, 'blue', 'player1')">
+        <div class="rocket-option" onclick="selectRocket(1.2, 'blue', 'player1')">
             <img src="https://via.placeholder.com/40x60/0000ff/ffffff?text=R2" alt="Rocket 2">
         </div>
-        <div class="rocket-option" onclick="selectRocket(7, 'green', 'player1')">
+        <div class="rocket-option" onclick="selectRocket(0.9, 'green', 'player1')">
             <img src="https://via.placeholder.com/40x60/00ff00/ffffff?text=R3" alt="Rocket 3">
         </div>
-        <div class="rocket-option" onclick="selectRocket(8, 'yellow', 'player1')">
+        <div class="rocket-option" onclick="selectRocket(0.6, 'yellow', 'player1')">
             <img src="https://via.placeholder.com/40x60/ffff00/ffffff?text=R4" alt="Rocket 4">
         </div>
-        <div class="rocket-option" onclick="selectRocket(10, 'purple', 'player1')">
+        <div class="rocket-option" onclick="selectRocket(0.8, 'purple', 'player1')">
             <img src="https://via.placeholder.com/40x60/800080/ffffff?text=R5" alt="Rocket 5">
         </div>
     </div>
     
     <div id="chooseRocketText2" style="display: none;">Kies een raket voor Speler 2:</div>
     <div id="rocketSelection2" style="display: none;">
-        <div class="rocket-option" onclick="selectRocket(5, 'red', 'player2')">
+        <div class="rocket-option" onclick="selectRocket(1, 'red', 'player2')">
             <img src="https://via.placeholder.com/40x60/ff0000/ffffff?text=R1" alt="Rocket 1">
         </div>
-        <div class="rocket-option" onclick="selectRocket(6, 'blue', 'player2')">
+        <div class="rocket-option" onclick="selectRocket(1.2, 'blue', 'player2')">
             <img src="https://via.placeholder.com/40x60/0000ff/ffffff?text=R2" alt="Rocket 2">
         </div>
-        <div class="rocket-option" onclick="selectRocket(7, 'green', 'player2')">
+        <div class="rocket-option" onclick="selectRocket(0.9, 'green', 'player2')">
             <img src="https://via.placeholder.com/40x60/00ff00/ffffff?text=R3" alt="Rocket 3">
         </div>
-        <div class="rocket-option" onclick="selectRocket(8, 'yellow', 'player2')">
+        <div class="rocket-option" onclick="selectRocket(0.6, 'yellow', 'player2')">
             <img src="https://via.placeholder.com/40x60/ffff00/ffffff?text=R4" alt="Rocket 4">
         </div>
-        <div class="rocket-option" onclick="selectRocket(10, 'purple', 'player2')">
+        <div class="rocket-option" onclick="selectRocket(0.8, 'purple', 'player2')">
             <img src="https://via.placeholder.com/40x60/800080/ffffff?text=R5" alt="Rocket 5">
         </div>
     </div>
 
-    <canvas id="gameCanvas" width="640" height="480"></canvas>
+    <canvas id="gameCanvas" width="640" height="600"></canvas>
     <p id="winner"></p>
+
+    <!-- Restart button -->
+    <button id="restartButton" style="display: none;" onclick="restartGame()">Start opnieuw</button>
 
     <script>
         const canvas = document.getElementById("gameCanvas");
@@ -110,7 +150,7 @@
         function generateObstacles() {
             if (Math.random() < 0.02) {
                 let x = Math.random() * (canvas.width - 30);
-                obstacles.push({ x: x, y: 0, width: 30, height: 30, speed: 2 });
+                obstacles.push({ x: x, y: 0, width: 30, height: 30, speed: 1 });
             }
         }
 
@@ -150,9 +190,11 @@
             if (player1Rocket && player1Rocket.y <= 0) {
                 document.getElementById("winner").innerText = "🚀 Speler 1 wint!";
                 gameOver = true;
+                document.getElementById("restartButton").style.display = "inline-block"; // Show restart button
             } else if (player2Rocket && player2Rocket.y <= 0) {
                 document.getElementById("winner").innerText = "🚀 Speler 2 wint!";
                 gameOver = true;
+                document.getElementById("restartButton").style.display = "inline-block"; // Show restart button
             }
         }
 
@@ -173,6 +215,7 @@
                 if ((player1Rocket && checkCollision(player1Rocket)) || (player2Rocket && checkCollision(player2Rocket))) {
                     gameOver = true;
                     document.getElementById("winner").innerText = "💥 Game Over!";
+                    document.getElementById("restartButton").style.display = "inline-block"; // Show restart button
                 }
 
                 // Generate and update obstacles
@@ -216,6 +259,21 @@
                     gameLoop();  // Start the game loop
                 }
             }
+        }
+
+        // Restart the game
+        function restartGame() {
+            player1Rocket = null;
+            player2Rocket = null;
+            player1Selected = false;
+            player2Selected = false;
+            gameOver = false;
+            obstacles = [];
+            document.getElementById("winner").innerText = "";
+            document.getElementById("restartButton").style.display = "none"; // Hide the restart button
+            document.getElementById("rocketSelection").style.display = 'flex';
+            document.getElementById("chooseRocketText").innerText = "Kies een raket voor Speler 1:";
+            gameLoop(); // Restart the game loop
         }
 
         // Listen for key events
