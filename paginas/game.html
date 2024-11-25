@@ -2,142 +2,158 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">µ
-    <link rel="stylesheet" href="../style.css"> <!-- Link to common styles -->
-    <link rel="stylesheet" href="../raket.css"> <!-- Link to raket-specific styles (optional) -->
-    <link rel="icon" href="..\favicon.ico.png" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Raket Race met Obstakels</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
             height: 100vh;
             margin: 0;
-            background-color: #f0f0f0;
-        }
-        #gameCanvas {
-            border: 1px solid black;
-            background-color: #e0e0e0;
-        }
-        #rocketSelection {
             display: flex;
-            margin-top: 10px;
-            gap: 10px;
+            flex-direction: column;
             justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
         }
+
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('vangogh.jpg') no-repeat center center fixed;
+            background-size: cover;
+            z-index: -10;
+        }
+
+        nav {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 1;
+        }
+
+        .clean-button {
+            padding: 10px 20px;
+            background-color: rgba(76, 175, 80, 0.8);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+        #gameCanvas {
+            border: 1px solid white;
+            background-color: rgba(255, 255, 255, 0.1);
+            z-index: 1;
+        }
+
+        #rocketSelection, #rocketSelection2 {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            z-index: 1;
+        }
+
         .rocket-option {
             width: 40px;
             height: 60px;
             cursor: pointer;
-            border: 1px solid black;
+            border: 1px solid white;
+            z-index: 1;
         }
+
         .rocket-option img {
             width: 100%;
             height: 100%;
         }
+
+        #chooseRocketText, #chooseRocketText2 {
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            margin: 10px 0;
+            z-index: 1;
+        }
+
+        #restartButton {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            display: none;
+            z-index: 1;
+        }
+
         #winner {
+            font-size: 24px;
+            font-weight: bold;
             position: absolute;
             top: 10px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 24px;
-            font-weight: bold;
-            color: #333;
-        }
-
-        .clean-button {
-            display: inline-block;
-            padding: 10px 20px;
-            margin: 0;
-            background-color: #4CAF50;
             color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            border: none;
-            font-size: 16px;
-            cursor: pointer;
-            position: fixed;
-            z-index: 1000;
-            top: 10px;
-            left: 10px;
-        }  
-        
-        #restartButton {
-            display: inline-block;
-            padding: 10px 20px;
-            margin-top: 20px;
-            background-color: #4CAF50;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-size: 16px;
-            cursor: pointer;
-            position: absolute;
-            bottom: 20px;
-            z-index: 100;
-            border: none ;
+            z-index: 1;
         }
-
     </style>
 </head>
-<nav>
-    <a href="../index.html" class="clean-button">Go to Home</a>
-</nav>
 <body>
-    <!-- Same background container as in index.html -->
-    <div class="background-container">
-        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/moon2.png" alt="Maan">
-        <div class="stars"></div>
-        <div class="twinkling"></div>
-        <div class="clouds"></div>
-    </div>
+    <div class="background"></div>
+
+    <nav>
+        <a href="../index.html" class="clean-button">Go to Home</a>
+    </nav>
 
     <div id="chooseRocketText">Kies een raket voor Speler 1:</div>
     <div id="rocketSelection">
-        <div class="rocket-option" onclick="selectRocket(1, 'red', 'player1')">
-            <img src="https://via.placeholder.com/40x60/ff0000/ffffff?text=R1" alt="Rocket 1">
+        <div class="rocket-option" onclick="selectRocket('rocket1.png', 'player1')">
+            <img src="rocket1.png" alt="Rocket 1">
         </div>
-        <div class="rocket-option" onclick="selectRocket(1.2, 'blue', 'player1')">
-            <img src="https://via.placeholder.com/40x60/0000ff/ffffff?text=R2" alt="Rocket 2">
+        <div class="rocket-option" onclick="selectRocket('rocket2.png', 'player1')">
+            <img src="rocket2.png" alt="Rocket 2">
         </div>
-        <div class="rocket-option" onclick="selectRocket(0.9, 'green', 'player1')">
-            <img src="https://via.placeholder.com/40x60/00ff00/ffffff?text=R3" alt="Rocket 3">
+        <div class="rocket-option" onclick="selectRocket('rocket3.png', 'player1')">
+            <img src="rocket3.png" alt="Rocket 3">
         </div>
-        <div class="rocket-option" onclick="selectRocket(0.6, 'yellow', 'player1')">
-            <img src="https://via.placeholder.com/40x60/ffff00/ffffff?text=R4" alt="Rocket 4">
+        <div class="rocket-option" onclick="selectRocket('rocket4.png', 'player1')">
+            <img src="rocket4.png" alt="Rocket 4">
         </div>
-        <div class="rocket-option" onclick="selectRocket(1.4, 'purple', 'player1')">
-            <img src="https://via.placeholder.com/40x60/800080/ffffff?text=R5" alt="Rocket 5">
+        <div class="rocket-option" onclick="selectRocket('rocket5.png', 'player1')">
+            <img src="rocket5.png" alt="Rocket 5">
         </div>
     </div>
-    
+
     <div id="chooseRocketText2" style="display: none;">Kies een raket voor Speler 2:</div>
     <div id="rocketSelection2" style="display: none;">
-        <div class="rocket-option" onclick="selectRocket(1, 'red', 'player2')">
-            <img src="https://via.placeholder.com/40x60/ff0000/ffffff?text=R1" alt="Rocket 1">
+        <div class="rocket-option" onclick="selectRocket('rocket1.png', 'player2')">
+            <img src="rocket1.png" alt="Rocket 1">
         </div>
-        <div class="rocket-option" onclick="selectRocket(1.2, 'blue', 'player2')">
-            <img src="https://via.placeholder.com/40x60/0000ff/ffffff?text=R2" alt="Rocket 2">
+        <div class="rocket-option" onclick="selectRocket('rocket2.png', 'player2')">
+            <img src="rocket2.png" alt="Rocket 2">
         </div>
-        <div class="rocket-option" onclick="selectRocket(0.9, 'green', 'player2')">
-            <img src="https://via.placeholder.com/40x60/00ff00/ffffff?text=R3" alt="Rocket 3">
+        <div class="rocket-option" onclick="selectRocket('rocket3.png', 'player2')">
+            <img src="rocket3.png" alt="Rocket 3">
         </div>
-        <div class="rocket-option" onclick="selectRocket(0.6, 'yellow', 'player2')">
-            <img src="https://via.placeholder.com/40x60/ffff00/ffffff?text=R4" alt="Rocket 4">
+        <div class="rocket-option" onclick="selectRocket('rocket4.png', 'player2')">
+            <img src="rocket4.png" alt="Rocket 4">
         </div>
-        <div class="rocket-option" onclick="selectRocket(1.4, 'purple', 'player2')">
-            <img src="https://via.placeholder.com/40x60/800080/ffffff?text=R5" alt="Rocket 5">
+        <div class="rocket-option" onclick="selectRocket('rocket5.png', 'player2')">
+            <img src="rocket5.png" alt="Rocket 5">
         </div>
     </div>
 
     <canvas id="gameCanvas" width="640" height="600"></canvas>
     <p id="winner"></p>
 
-    <!-- Restart button -->
-    <button id="restartButton" style="display: none;" onclick="restartGame()">Start opnieuw</button>
+    <button id="restartButton" onclick="restartGame()">Start opnieuw</button>
 
     <script>
         const canvas = document.getElementById("gameCanvas");
@@ -145,163 +161,155 @@
 
         let player1Rocket = null;
         let player2Rocket = null;
-        let keysPressed = { z: false, q: false, d: false, ArrowUp: false, ArrowLeft: false, ArrowRight: false };
-        let gameOver = false;
         let obstacles = [];
+        let gameOver = false;
         let player1Selected = false;
         let player2Selected = false;
+        let keysPressed = {};
 
-        // Function to draw rockets
-        function drawRocket(rocket) {
-            ctx.fillStyle = rocket.color;
-            ctx.fillRect(rocket.x, rocket.y, rocket.width, rocket.height); 
-        }
-
-        // Function to generate obstacles
-        function generateObstacles() {
-            if (Math.random() < 0.02) {
-                let x = Math.random() * (canvas.width - 30);
-                obstacles.push({ x: x, y: 0, width: 30, height: 30, speed: 1 });
-            }
-        }
-
-        // Function to draw obstacles
-        function drawObstacles() {
-            ctx.fillStyle = "green";
-            obstacles.forEach((obstacle) => {
-                ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
-            });
-        }
-
-        // Update obstacles' position
-        function updateObstacles() {
-            obstacles.forEach((obstacle) => {
-                obstacle.y += obstacle.speed;
-            });
-
-            obstacles = obstacles.filter((obstacle) => obstacle.y < canvas.height);
-        }
-
-        // Check if rocket collides with an obstacle
-        function checkCollision(rocket) {
-            for (let i = 0; i < obstacles.length; i++) {
-                let o = obstacles[i];
-                if (rocket.x < o.x + o.width &&
-                    rocket.x + rocket.width > o.x &&
-                    rocket.y < o.y + o.height &&
-                    rocket.y + rocket.height > o.y) {
-                    return true;
+        // Functie om raketten te selecteren
+        function selectRocket(rocketImage, player) {
+            if (player === 'player1' && !player1Selected) {
+                player1Rocket = { image: new Image(), src: rocketImage, x: 100, y: canvas.height - 60, speed: 5 };
+                player1Rocket.image.src = rocketImage;
+                player1Selected = true;
+                document.getElementById('chooseRocketText').style.display = 'none';
+                document.getElementById('rocketSelection').style.display = 'none';
+                document.getElementById('chooseRocketText2').style.display = 'block';
+                document.getElementById('rocketSelection2').style.display = 'flex';
+            } else if (player === 'player2' && !player2Selected) {
+                player2Rocket = { image: new Image(), src: rocketImage, x: 500, y: canvas.height - 60, speed: 5 };
+                player2Rocket.image.src = rocketImage;
+                player2Selected = true;
+                if (player1Selected && player2Selected) {
+                    startGame();
                 }
             }
-            return false;
         }
 
-        // Check if there is a winner
-        function checkWinner() {
-            if (player1Rocket && player1Rocket.y <= 0) {
-                document.getElementById("winner").innerText = "🚀 Speler 1 wint!";
-                gameOver = true;
-                document.getElementById("restartButton").style.display = "inline-block"; // Show restart button
-            } else if (player2Rocket && player2Rocket.y <= 0) {
-                document.getElementById("winner").innerText = "🚀 Speler 2 wint!";
-                gameOver = true;
-                document.getElementById("restartButton").style.display = "inline-block"; // Show restart button
-            }
-        }
-
-        function update() {
-    if (!gameOver) {
-        // Blue rocket (pijltjestoetsen)
-        if (keysPressed.ArrowUp && player2Rocket) player2Rocket.y -= player2Rocket.speed;
-        if (keysPressed.ArrowLeft && player2Rocket && player2Rocket.x > 0) player2Rocket.x -= player2Rocket.speed;
-        if (keysPressed.ArrowRight && player2Rocket && player2Rocket.x + player2Rocket.width < canvas.width) player2Rocket.x += player2Rocket.speed;
-
-        // Red rocket (Z, Q, D)
-        if (keysPressed.z && player1Rocket) player1Rocket.y -= player1Rocket.speed;
-        if (keysPressed.q && player1Rocket && player1Rocket.x > 0) player1Rocket.x -= player1Rocket.speed;
-        if (keysPressed.d && player1Rocket && player1Rocket.x + player1Rocket.width < canvas.width) player1Rocket.x += player1Rocket.speed;
-
-        // Handle collisions
-        if ((player1Rocket && checkCollision(player1Rocket)) || (player2Rocket && checkCollision(player2Rocket))) {
-            gameOver = true;
-            document.getElementById("winner").innerText = "💥 Game Over!";
-            document.getElementById("restartButton").style.display = "inline-block"; // Show restart button
-        }
-
-        // Generate and update obstacles
-        generateObstacles();
-        updateObstacles();
-        checkWinner();
-    }
-}
-
-
-        function draw() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            // Tekenen van de raketten
-            drawRocket(player1Rocket);
-            drawRocket(player2Rocket);
-
-            // Obstakels tekenen
-            drawObstacles();
-
-            // Tekenen van randen (optioneel)
-            ctx.fillStyle = "black";
-            ctx.fillRect(0, 0, 5, canvas.height); // Linker rand
-            ctx.fillRect(canvas.width - 5, 0, 5, canvas.height); // Rechter rand
+        // Start het spel
+        function startGame() {
+            document.getElementById('chooseRocketText2').style.display = 'none';
+            document.getElementById('rocketSelection2').style.display = 'none';
+            document.getElementById('restartButton').style.display = 'none';
+            // Genereer obstakels
+            generateObstacles();
+            gameLoop();
         }
 
         // Game loop
         function gameLoop() {
-            update();
-            draw();
-            if (!gameOver) requestAnimationFrame(gameLoop);
-        }
+            if (!gameOver) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        // Function to select a rocket
-        function selectRocket(speed, color, player) {
-            if (player === 'player1' && !player1Selected) {
-                player1Rocket = { x: 100, y: canvas.height - 60, width: 30, height: 60, speed: speed, color: color };
-                player1Selected = true;
-                document.getElementById("chooseRocketText").innerText = "Kies een raket voor Speler 2:";
-                document.getElementById("rocketSelection").style.display = 'none';
-                document.getElementById("rocketSelection2").style.display = 'flex';
-            } else if (player === 'player2' && !player2Selected) {
-                player2Rocket = { x: 500, y: canvas.height - 60, width: 30, height: 60, speed: speed, color: color };
-                player2Selected = true;
-
-                // Start game once both players have selected their rockets
-                if (player1Selected && player2Selected) {
-                    document.getElementById("chooseRocketText2").style.display = 'none';
-                    document.getElementById("rocketSelection2").style.display = 'none';
-                    gameLoop();  // Start the game loop
+                // Teken raketten
+                if (player1Rocket) {
+                    ctx.drawImage(player1Rocket.image, player1Rocket.x, player1Rocket.y, 50, 80);
                 }
+
+                if (player2Rocket) {
+                    ctx.drawImage(player2Rocket.image, player2Rocket.x, player2Rocket.y, 50, 80);
+                }
+
+                // Teken obstakels
+                drawObstacles();
+
+                handleMovement();
+                checkCollision();
+                checkWinner();
+
+                requestAnimationFrame(gameLoop);
             }
         }
 
-        // Restart the game
-        function restartGame() {
-            player1Rocket = null;
-            player2Rocket = null;
-            player1Selected = false;
-            player2Selected = false;
-            gameOver = false;
-            obstacles = [];
-            document.getElementById("winner").innerText = "";
-            document.getElementById("restartButton").style.display = "none"; // Hide the restart button
-            document.getElementById("rocketSelection").style.display = 'flex';
-            document.getElementById("chooseRocketText").innerText = "Kies een raket voor Speler 1:";
-            gameLoop(); // Restart the game loop
+        // Beweging van de raketten
+        function handleMovement() {
+            if (keysPressed.ArrowUp && player2Rocket) player2Rocket.y -= player2Rocket.speed;
+            if (keysPressed.ArrowDown && player2Rocket) player2Rocket.y += player2Rocket.speed;
+            if (keysPressed.ArrowLeft && player2Rocket) player2Rocket.x -= player2Rocket.speed;
+            if (keysPressed.ArrowRight && player2Rocket) player2Rocket.x += player2Rocket.speed;
+
+            if (keysPressed.w && player1Rocket) player1Rocket.y -= player1Rocket.speed;
+            if (keysPressed.s && player1Rocket) player1Rocket.y += player1Rocket.speed;
+            if (keysPressed.a && player1Rocket) player1Rocket.x -= player1Rocket.speed;
+            if (keysPressed.d && player1Rocket) player1Rocket.x += player1Rocket.speed;
         }
 
-        // Listen for key events
-        window.addEventListener("keydown", function (e) {
+        // Controleer op botsingen met obstakels
+        function checkCollision() {
+            obstacles.forEach(obstacle => {
+                if (player1Rocket && player1Rocket.x < obstacle.x + obstacle.width &&
+                    player1Rocket.x + 50 > obstacle.x && player1Rocket.y < obstacle.y + obstacle.height &&
+                    player1Rocket.y + 80 > obstacle.y) {
+                    // Botsing met speler 1
+                    gameOver = true;
+                    document.getElementById("winner").innerText = "🚀 Speler 1 verliest!";
+                    document.getElementById("restartButton").style.display = "block";
+                }
+
+                if (player2Rocket && player2Rocket.x < obstacle.x + obstacle.width &&
+                    player2Rocket.x + 50 > obstacle.x && player2Rocket.y < obstacle.y + obstacle.height &&
+                    player2Rocket.y + 80 > obstacle.y) {
+                    // Botsing met speler 2
+                    gameOver = true;
+                    document.getElementById("winner").innerText = "🚀 Speler 2 verliest!";
+                    document.getElementById("restartButton").style.display = "block";
+                }
+            });
+        }
+
+        // Teken obstakels
+        function drawObstacles() {
+            obstacles.forEach(obstacle => {
+                ctx.fillStyle = "red";
+                ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+            });
+        }
+
+        // Genereer obstakels
+        function generateObstacles() {
+            obstacles = [
+                { x: 200, y: 400, width: 50, height: 50 },
+                { x: 400, y: 300, width: 50, height: 50 },
+                { x: 300, y: 200, width: 50, height: 50 }
+            ];
+        }
+
+        // Controleer wie gewonnen heeft
+        function checkWinner() {
+            if (player1Rocket.y <= 0) {
+                document.getElementById("winner").innerText = "🚀 Speler 1 wint!";
+                gameOver = true;
+                document.getElementById("restartButton").style.display = "block";
+            } else if (player2Rocket.y <= 0) {
+                document.getElementById("winner").innerText = "🚀 Speler 2 wint!";
+                gameOver = true;
+                document.getElementById("restartButton").style.display = "block";
+            }
+        }
+
+        // Functie om het spel opnieuw te starten
+        function restartGame() {
+            player1Selected = false;
+            player2Selected = false;
+            player1Rocket = null;
+            player2Rocket = null;
+            gameOver = false;
+            keysPressed = {};
+            document.getElementById("winner").innerText = "";
+            document.getElementById("restartButton").style.display = "none";
+            document.getElementById("rocketSelection").style.display = 'flex';
+            document.getElementById("chooseRocketText").style.display = 'block';
+        }
+
+        // Keydown event voor raketbewegingen
+        window.addEventListener('keydown', function(e) {
             keysPressed[e.key] = true;
         });
 
-        window.addEventListener("keyup", function (e) {
-            keysPressed[e.key] = false;
+        // Keyup event voor raketbewegingen
+        window.addEventListener('keyup', function(e) {
+            delete keysPressed[e.key];
         });
     </script>
 </body>
