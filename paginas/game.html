@@ -2,7 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">µ
+    <link rel="stylesheet" href="../style.css"> <!-- Link to common styles -->
+    <link rel="stylesheet" href="../raket.css"> <!-- Link to raket-specific styles (optional) -->
+    <link rel="icon" href="..\favicon.ico.png" type="image/x-icon">
     <title>Raket Race met Obstakels</title>
     <style>
         body {
@@ -84,6 +87,14 @@
     <a href="../index.html" class="clean-button">Go to Home</a>
 </nav>
 <body>
+    <!-- Same background container as in index.html -->
+    <div class="background-container">
+        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/moon2.png" alt="Maan">
+        <div class="stars"></div>
+        <div class="twinkling"></div>
+        <div class="clouds"></div>
+    </div>
+
     <div id="chooseRocketText">Kies een raket voor Speler 1:</div>
     <div id="rocketSelection">
         <div class="rocket-option" onclick="selectRocket(1, 'red', 'player1')">
@@ -98,7 +109,7 @@
         <div class="rocket-option" onclick="selectRocket(0.6, 'yellow', 'player1')">
             <img src="https://via.placeholder.com/40x60/ffff00/ffffff?text=R4" alt="Rocket 4">
         </div>
-        <div class="rocket-option" onclick="selectRocket(10, 'purple', 'player1')">
+        <div class="rocket-option" onclick="selectRocket(1.4, 'purple', 'player1')">
             <img src="https://via.placeholder.com/40x60/800080/ffffff?text=R5" alt="Rocket 5">
         </div>
     </div>
@@ -117,7 +128,7 @@
         <div class="rocket-option" onclick="selectRocket(0.6, 'yellow', 'player2')">
             <img src="https://via.placeholder.com/40x60/ffff00/ffffff?text=R4" alt="Rocket 4">
         </div>
-        <div class="rocket-option" onclick="selectRocket(10, 'purple', 'player2')">
+        <div class="rocket-option" onclick="selectRocket(1.4, 'purple', 'player2')">
             <img src="https://via.placeholder.com/40x60/800080/ffffff?text=R5" alt="Rocket 5">
         </div>
     </div>
@@ -198,39 +209,47 @@
             }
         }
 
-        // Update rockets' position
         function update() {
-            if (!gameOver) {
-                // Blue rocket (pijltjestoetsen)
-                if (keysPressed.ArrowUp && player2Rocket) player2Rocket.y -= player2Rocket.speed;
-                if (keysPressed.ArrowLeft && player2Rocket ) player2Rocket.x -= player2Rocket.speed;
-                if (keysPressed.ArrowRight && player2Rocket ) player2Rocket.x += player2Rocket.speed;
+    if (!gameOver) {
+        // Blue rocket (pijltjestoetsen)
+        if (keysPressed.ArrowUp && player2Rocket) player2Rocket.y -= player2Rocket.speed;
+        if (keysPressed.ArrowLeft && player2Rocket && player2Rocket.x > 0) player2Rocket.x -= player2Rocket.speed;
+        if (keysPressed.ArrowRight && player2Rocket && player2Rocket.x + player2Rocket.width < canvas.width) player2Rocket.x += player2Rocket.speed;
 
-                // Red rocket (Z, Q, D)
-                if (keysPressed.z && player1Rocket) player1Rocket.y -= player1Rocket.speed;
-                if (keysPressed.q && player1Rocket ) player1Rocket.x -= player1Rocket.speed;
-                if (keysPressed.d && player1Rocket) player1Rocket.x += player1Rocket.speed;
+        // Red rocket (Z, Q, D)
+        if (keysPressed.z && player1Rocket) player1Rocket.y -= player1Rocket.speed;
+        if (keysPressed.q && player1Rocket && player1Rocket.x > 0) player1Rocket.x -= player1Rocket.speed;
+        if (keysPressed.d && player1Rocket && player1Rocket.x + player1Rocket.width < canvas.width) player1Rocket.x += player1Rocket.speed;
 
-                // Handle collisions
-                if ((player1Rocket && checkCollision(player1Rocket)) || (player2Rocket && checkCollision(player2Rocket))) {
-                    gameOver = true;
-                    document.getElementById("winner").innerText = "💥 Game Over!";
-                    document.getElementById("restartButton").style.display = "inline-block"; // Show restart button
-                }
-
-                // Generate and update obstacles
-                generateObstacles();
-                updateObstacles();
-                checkWinner();
-            }
+        // Handle collisions
+        if ((player1Rocket && checkCollision(player1Rocket)) || (player2Rocket && checkCollision(player2Rocket))) {
+            gameOver = true;
+            document.getElementById("winner").innerText = "💥 Game Over!";
+            document.getElementById("restartButton").style.display = "inline-block"; // Show restart button
         }
 
-        // Draw all game elements
+        // Generate and update obstacles
+        generateObstacles();
+        updateObstacles();
+        checkWinner();
+    }
+}
+
+
         function draw() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Tekenen van de raketten
             drawRocket(player1Rocket);
             drawRocket(player2Rocket);
+
+            // Obstakels tekenen
             drawObstacles();
+
+            // Tekenen van randen (optioneel)
+            ctx.fillStyle = "black";
+            ctx.fillRect(0, 0, 5, canvas.height); // Linker rand
+            ctx.fillRect(canvas.width - 5, 0, 5, canvas.height); // Rechter rand
         }
 
         // Game loop

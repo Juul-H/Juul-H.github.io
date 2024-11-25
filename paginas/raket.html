@@ -6,11 +6,18 @@
     <title>Rocket Nose Simulation</title>
     <link rel="stylesheet" href="../style.css"> <!-- Link to common styles -->
     <link rel="stylesheet" href="../raket.css"> <!-- Link to raket-specific styles (optional) -->
-    <link rel="icon" href="favicon.ico.png" type="image/x-icon">
+    <link rel="icon" href="..\favicon.ico.png" type="image/x-icon">
 </head>
 <body>
-
+    <header>
+        <nav>
+            <a href="game.html" class="clean-button">Go to game</a>
+        </nav>
+    </header>
     <!-- Same background container as in index.html -->
+     
+
+    
     <div class="background-container">
         <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/moon2.png" alt="Maan">
         <div class="stars"></div>
@@ -18,67 +25,25 @@
         <div class="clouds"></div>
     </div>
 
-    <header>
-        <nav>
-            <a href="game.html" class="clean-button">Go to game</a>
-        </nav>
-    </header>
-
-    <main>
-        <div class="container">
-            <!-- Rocket Template (Drag-and-Drop Area) -->
-            <div id="rocket-template" class="rocket-template" ondrop="drop(event)" ondragover="allowDrop(event)">
-                <h2>Rocket Nose Template</h2>
-                <p>Drag a rocket nose to the template!</p>
-            </div>
-
-            <!-- Rocket Nose Selection -->
-            <div class="nose-selection">
-                <h3>Select a Rocket Nose</h3>
-                <div class="nose" id="nose1" draggable="true" ondragstart="drag(event)">
-                    <img src="../nose1.png" alt="Rocket Nose 1">
-                </div>
-                <div class="nose" id="nose2" draggable="true" ondragstart="drag(event)">
-                    <img src="../nose2.png" alt="Rocket Nose 2">
-                </div>
-                <div class="nose" id="nose3" draggable="true" ondragstart="drag(event)">
-                    <img src="../nose3.png" alt="Rocket Nose 3">
-                </div>
-            </div>
-
-            <!-- Leaderboard Section -->
-            <div class="leaderboard">
-                <h3>Leaderboard</h3>
-                <table id="leaderboard-table">
-                    <thead>
-                        <tr>
-                            <th>Rank</th>
-                            <th>Name</th>
-                            <th>Score</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Player 1</td>
-                            <td>150</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Player 2</td>
-                            <td>120</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Player 3</td>
-                            <td>100</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            
+    
+    <div class="container">
+        <div class="rocket-selector left">
+            <button class="arrow" id="left-arrow">&lt;</button>
+            <img id="rocket-image" src="rocket1.png" alt="Rocket" />
+            <button class="arrow" id="right-arrow">&gt;</button>
+            <button id="select-button">Select</button>
         </div>
-    </main>
+        <div class="rocket-selector right">
+            <button class="arrow" id="left-arrow-right">&lt;</button>
+            <img id="rocket-image-right" src="rocket1.png" alt="Rocket" />
+            <button class="arrow" id="right-arrow-right">&gt;</button>
+            <button id="select-button-right">Select</button>
+        </div>
+    </div>
+    <div id="animation-area">
+        <img id="landing-rocket" src="rocket1.png" alt="Landing Rocket" style="display:none;" />
+    </div>
+    
 
     <script src="../script.js"></script>
 </body>

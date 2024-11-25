@@ -1,7 +1,5 @@
-/* Algemeen stijlen voor de body */
+
 body {
-    background-color: #111;
-    color: #fff;
     font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
@@ -10,114 +8,35 @@ body {
     margin: 0;
 }
 
-/* Container voor rakettemplate en neus-selectie */
 .container {
     display: flex;
-    justify-content: center; /* Raketten in het midden */
-    align-items: center;     /* Verticaal gecentreerd */
-    gap: 20px; /* Voegt ruimte toe tussen de rakettemplate en de neus-selectie */
-    width: 100%;
+    justify-content: space-between;
+    width: 80%;
 }
 
-/* De rakettemplate zelf */
-.rocket-template {
-    width: 300px;
-    height: 500px;
-    background-color: #333;
-    border-radius: 10px;
-    position: relative;
-    border: 2px solid #222;
-    text-align: center;
-    color: white;
-    padding-top: 20px;
-    overflow: hidden;
-}
-
-/* De neus-selectie aan de linkerzijde */
-.nose-selection {
+.rocket-selector {
     display: flex;
-    flex-direction: column; /* Plaats de neuzen verticaal onder elkaar */
-    justify-content: space-evenly; /* Verdeel de neuzen gelijkmatig */
-    align-items: center; /* Centreer de neuzen horizontaal */
-    height: 300px; /* Specifieke hoogte voor de kolom */
-    width: 200px; /* Breedte van de kolom */
-    position: absolute; /* Absolute positionering voor de neus-selectie */
-    left: 20px; /* Zorg ervoor dat de neus-selectie aan de linkerzijde staat */
-    top: 50%; /* Plaats de neus-selectie verticaal in het midden */
-    transform: translateY(-50%); /* Zorg ervoor dat de neus-selectie precies gecentreerd is */
-    background-color: rgba(0, 0, 0, 0.2); /* Debugkleur */
+    flex-direction: column;
+    align-items: center;
 }
 
-/* Styling voor de neuzen */
-.nose {
-    width: 100px; /* Breedte van elk vakje */
-    height: 100px; /* Hoogte van elk vakje */
-    border: 2px solid #222;
-    border-radius: 5px;
-    background-color: #fff;
-    overflow: hidden;
-    display: flex; /* Om de afbeelding in het midden te plaatsen */
-    justify-content: center; /* Horizontaal centreren */
-    align-items: center; /* Verticaal centreren */
-}
-
-/* Afbeeldingen van de neuzen */
-.nose img {
-    width: 100%; /* Zorg dat de afbeelding in het vakje past */
-    height: 100%;
-    object-fit: cover;
-}
-
-/* Hover-effect voor de neuzen */
-.nose:hover {
-    background-color: #f0f0f0;
-}
-
-/* Kopteksten styling */
-h2, h3 {
-    color: #333;
-}
-
-.nose1 {
-
-    
-}
-/* Leaderboard styles */
-.leaderboard {
-    margin-top: 30px;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.leaderboard h3 {
-    margin-top: 0;
+.arrow {
+    background: none;
+    border: none;
     font-size: 24px;
-    color: #333;
+    cursor: pointer;
 }
 
-#leaderboard-table {
+#animation-area {
+    position: relative;
     width: 100%;
-    border-collapse: collapse;
+    height: 300px; /* Adjust based on your layout */
 }
 
-#leaderboard-table th, #leaderboard-table td {
-    padding: 10px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-}
-
-#leaderboard-table th {
-    background-color: #f4f4f4;
-    font-weight: bold;
-}
-
-#leaderboard-table td {
-    font-size: 16px;
-    color: #555;
-}
-
-#leaderboard-table tr:hover {
-    background-color: #f9f9f9;
+#landing-rocket {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: transform 1s ease;
 }
