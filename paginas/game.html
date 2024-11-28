@@ -50,6 +50,8 @@
             border: 1px solid white;
             background-color: rgba(255, 255, 255, 0.1);
             z-index: 1;
+            padding: 0;
+            margin: 0;
         }
 
         #rocketSelection, #rocketSelection2 {
@@ -63,7 +65,6 @@
             width: 40px;
             height: 60px;
             cursor: pointer;
-            border: 1px solid white;
             z-index: 1;
         }
 
@@ -111,6 +112,7 @@
 
     <nav>
         <a href="../index.html" class="clean-button">Go to Home</a>
+        <p id="timer" style="position: fixed; top: 10px; right: 10px; font-size: 24px; color: white;">Tijd: 0</p>
     </nav>
 
     <div id="chooseRocketText">Kies een raket voor Speler 1:</div>
@@ -157,6 +159,29 @@
     <button id="restartButton" onclick="restartGame()">Start opnieuw</button>
 
     <script>
+        let timer = 0;
+
+        let timerStarted = false;  // Voeg deze lijn toe bovenaan je script
+
+        let timerInterval;  // Voeg dit toe om de timer bij te houden
+
+
+        function updateTimer() {
+            timer++;  // Verhoog de timer met 1 elke keer dat de functie wordt aangeroepen
+            document.getElementById("timer").innerText = "Tijd: " + timer;  // Werk de timer tekst bij
+        }
+
+        // Start de timer, roep updateTimer elke 1000 ms (1 seconde) aan
+        setInterval(updateTimer, 1000);
+
+        const rockets = {
+            'rocket1.png': 2, // Rocket 1 met snelheid 2
+            'rocket2.png': 4, // Rocket 2 met snelheid 4
+            'rocket3.png': 5, // Rocket 3 met snelheid 5
+            'rocket4.png': 6, // Rocket 4 met snelheid 6
+            'rocket5.png': 7  // Rocket 5 met snelheid 7
+        };
+
         const canvas = document.getElementById("gameCanvas");
         const ctx = canvas.getContext("2d");
 
@@ -168,10 +193,17 @@
         let player2Selected = false;
         let keysPressed = {};
 
-        // Functie om raketten te selecteren
         function selectRocket(rocketImage, player) {
+            const speed = rockets[rocketImage]; // Haal de snelheid op uit het object
+
             if (player === 'player1' && !player1Selected) {
-                player1Rocket = { image: new Image(), src: rocketImage, x: 100, y: canvas.height - 60, speed: 5 };
+                player1Rocket = { 
+                    image: new Image(), 
+                    src: rocketImage, 
+                    x: 100, 
+                    y: canvas.height - 45, 
+                    speed: speed 
+                };
                 player1Rocket.image.src = rocketImage;
                 player1Selected = true;
                 document.getElementById('chooseRocketText').style.display = 'none';
@@ -179,7 +211,13 @@
                 document.getElementById('chooseRocketText2').style.display = 'block';
                 document.getElementById('rocketSelection2').style.display = 'flex';
             } else if (player === 'player2' && !player2Selected) {
-                player2Rocket = { image: new Image(), src: rocketImage, x: 500, y: canvas.height - 60, speed: 5 };
+                player2Rocket = { 
+                    image: new Image(), 
+                    src: rocketImage, 
+                    x: 500, 
+                    y: canvas.height - 45, 
+                    speed: speed 
+                };
                 player2Rocket.image.src = rocketImage;
                 player2Selected = true;
                 if (player1Selected && player2Selected) {
@@ -198,50 +236,82 @@
             gameLoop();
         }
 
-        // Game loop
         function gameLoop() {
             if (!gameOver) {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
 
                 // Teken raketten
                 if (player1Rocket) {
-                    ctx.drawImage(player1Rocket.image, player1Rocket.x, player1Rocket.y, 50, 80);
+                    ctx.drawImage(player1Rocket.image, player1Rocket.x, player1Rocket.y, 30, 45);
                 }
 
                 if (player2Rocket) {
-                    ctx.drawImage(player2Rocket.image, player2Rocket.x, player2Rocket.y, 50, 80);
+                    ctx.drawImage(player2Rocket.image, player2Rocket.x, player2Rocket.y, 30, 45);
                 }
 
                 // Teken obstakels
                 drawObstacles();
 
+                // Verwerk beweging en botsingen
                 handleMovement();
                 checkCollision();
+                checkRocketCollision(); // Nieuwe functie om botsingen tussen raketten te detecteren
                 checkWinner();
 
                 requestAnimationFrame(gameLoop);
             }
         }
 
-        // Beweging van de raketten
-        function handleMovement() {
-            if (keysPressed.ArrowUp && player2Rocket) player2Rocket.y -= player2Rocket.speed;
-            if (keysPressed.ArrowDown && player2Rocket) player2Rocket.y += player2Rocket.speed;
-            if (keysPressed.ArrowLeft && player2Rocket) player2Rocket.x -= player2Rocket.speed;
-            if (keysPressed.ArrowRight && player2Rocket) player2Rocket.x += player2Rocket.speed;
 
-            if (keysPressed.w && player1Rocket) player1Rocket.y -= player1Rocket.speed;
-            if (keysPressed.s && player1Rocket) player1Rocket.y += player1Rocket.speed;
-            if (keysPressed.a && player1Rocket) player1Rocket.x -= player1Rocket.speed;
-            if (keysPressed.d && player1Rocket) player1Rocket.x += player1Rocket.speed;
+        function handleMovement() {
+            // Beweging voor Speler 1
+            if (player1Rocket) {
+                if (keysPressed['z']) player1Rocket.y -= player1Rocket.speed;
+                if (keysPressed['s']) player1Rocket.y += player1Rocket.speed;
+                if (keysPressed['q']) player1Rocket.x -= player1Rocket.speed;
+                if (keysPressed['d']) player1Rocket.x += player1Rocket.speed;
+
+                // Beperkingen op canvasgrenzen
+                player1Rocket.y = Math.max(0, Math.min(player1Rocket.y, canvas.height - 45));
+                player1Rocket.x = Math.max(0, Math.min(player1Rocket.x, canvas.width - 30));
+            }
+
+            // Beweging voor Speler 2
+            if (player2Rocket) {
+                if (keysPressed['arrowup']) player2Rocket.y -= player2Rocket.speed;
+                if (keysPressed['arrowdown']) player2Rocket.y += player2Rocket.speed;
+                if (keysPressed['arrowleft']) player2Rocket.x -= player2Rocket.speed;
+                if (keysPressed['arrowright']) player2Rocket.x += player2Rocket.speed;
+
+                // Beperkingen op canvasgrenzen
+                player2Rocket.y = Math.max(0, Math.min(player2Rocket.y, canvas.height - 45));
+                player2Rocket.x = Math.max(0, Math.min(player2Rocket.x, canvas.width - 30));
+            }
         }
+
+        function checkRocketCollision() {
+            if (
+                player1Rocket &&
+                player2Rocket &&
+                player1Rocket.x < player2Rocket.x + 30 &&
+                player1Rocket.x + 30 > player2Rocket.x &&
+                player1Rocket.y < player2Rocket.y + 45 &&
+                player1Rocket.y + 45 > player2Rocket.y
+            ) {
+                // Botsing gedetecteerd
+                gameOver = true;
+                document.getElementById("winner").innerText = "🚀 Beide spelers verliezen!";
+                document.getElementById("restartButton").style.display = "block";
+            }
+        }
+
 
         // Controleer op botsingen met obstakels
         function checkCollision() {
             obstacles.forEach(obstacle => {
                 if (player1Rocket && player1Rocket.x < obstacle.x + obstacle.width &&
-                    player1Rocket.x + 50 > obstacle.x && player1Rocket.y < obstacle.y + obstacle.height &&
-                    player1Rocket.y + 80 > obstacle.y) {
+                    player1Rocket.x + 30 > obstacle.x && player1Rocket.y < obstacle.y + obstacle.height &&
+                    player1Rocket.y + 45 > obstacle.y) {
                     // Botsing met speler 1
                     gameOver = true;
                     document.getElementById("winner").innerText = "🚀 Speler 1 verliest!";
@@ -249,8 +319,8 @@
                 }
 
                 if (player2Rocket && player2Rocket.x < obstacle.x + obstacle.width &&
-                    player2Rocket.x + 50 > obstacle.x && player2Rocket.y < obstacle.y + obstacle.height &&
-                    player2Rocket.y + 80 > obstacle.y) {
+                    player2Rocket.x + 30 > obstacle.x && player2Rocket.y < obstacle.y + obstacle.height &&
+                    player2Rocket.y + 45 > obstacle.y) {
                     // Botsing met speler 2
                     gameOver = true;
                     document.getElementById("winner").innerText = "🚀 Speler 2 verliest!";
@@ -269,7 +339,7 @@
                     y: Math.random() * -300, // Willekeurige start boven canvas
                     width: 50,
                     height: 50,
-                    speed: 2 + Math.random() * 3, // Willekeurige snelheid
+                    speed: 0.5 + Math.random() * 0.5, // Willekeurige snelheid
                     imageSrc: `obstacle${(i % 3) + 1}.png`,
                 };
                 obstacle.image = new Image();
@@ -316,6 +386,7 @@
         // Controleer wie gewonnen heeft
         function checkWinner() {
             if (player1Rocket.y <= 0) {
+                clearInterval(timerInterval);
                 document.getElementById("winner").innerText = "🚀 Speler 1 wint!";
                 gameOver = true;
                 document.getElementById("restartButton").style.display = "block";
@@ -339,16 +410,23 @@
             document.getElementById("rocketSelection").style.display = 'flex';
             document.getElementById("chooseRocketText").style.display = 'block';
         }
-
-                // Keydown event voor raketbewegingen
         window.addEventListener('keydown', function(e) {
-            keysPressed[e.key.toLowerCase()] = true; // Zorg dat het niet hoofdlettergevoelig is
+            keysPressed[e.key.toLowerCase()] = true;  // Verzeker dat toetsen in kleine letters worden opgeslagen
+
+            // Start de timer bij de eerste toetsdruk
+            if (!timerStarted) {
+                timerStarted = true;
+                timerInterval = setInterval(updateTimer, 1000);  // Start de timer op interval
+            }
         });
 
-        // Keyup event voor raketbewegingen
+
+
         window.addEventListener('keyup', function(e) {
             delete keysPressed[e.key.toLowerCase()];
         });
+
+
 
     </script>
 </body>
