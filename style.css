@@ -63,38 +63,6 @@ img {
     top: 50px;
 }
 
-.player-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    z-index: 10;
-    transform: translateY(40%);
-    position: relative;
-    
-
-}
-
-.controls {
-    display: flex;
-    align-items: center;
-    margin-top: 10px;
-    width: 50%;
-    
-}
-
-.sliders-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 10px;
-    width: 80%;
-    max-width: 640px;
-}
-
-.slider {
-    width: 100%;
-    margin: 5px 0;
-}
 
 .clean-button {
     display: inline-block;
@@ -138,17 +106,3 @@ img {
     transform: scale(0.95);
 }
 
-.play-btn {
-    display: inline-block;
-    padding: 10px 20px;
-    margin: 10px;
-    background-color: #4CAF50;
-    color: white;
-    text-decoration: none;
-    border-radius: 8px;
-    border: none;
-    font-size: 16px;
-    cursor: pointer;
-    position: relative;
-    z-index: 1000;
-}
