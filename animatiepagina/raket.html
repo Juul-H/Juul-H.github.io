@@ -242,89 +242,98 @@
     </div>
 
     <script>
-        function changeRocketWithSlider(sliderElement, rocketElement) {
-            const rocketImages = ["/raketfotos/H30.png", "/raketfotos/H40.png", "/raketfotos/H50.png", "/raketfotos/H60.png", "/raketfotos/H70.png"];
-            const currentIndex = sliderElement.value;  // Haal de waarde van de slider op
-            rocketElement.src = rocketImages[currentIndex];
-        }
+// Raketgegevens met afbeeldingen en snelheden
+const rocketData = [
+    { src: "/raketfotos/H30.png", speed: 1 },
+    { src: "/raketfotos/H40.png", speed: 1.4 },
+    { src: "/raketfotos/H50.png", speed: 1.7 },
+    { src: "/raketfotos/H60.png", speed: 2 },
+    { src: "/raketfotos/H70.png", speed: 2.2 },
+];
 
-        function showRocketStats(rocketElement, statsContainer) {
-            // Verwijder eventuele oude stats
-            statsContainer.innerHTML = '';
+// Functie om de afbeelding te veranderen met de slider
+function changeRocketWithSlider(sliderElement, rocketElement) {
+    const index = sliderElement.value;
+    rocketElement.src = rocketData[index].src; // Update de afbeelding van de raket
+}
 
-            // Definieer stats voor elke raket
-            const stats = {
-                "rocket1.png": ["Snelheid: 10.000 km/u", "Brandstof: 80%", "Crew: 3"],
-                "rocket2.jpeg": ["Snelheid: 15.000 km/u", "Brandstof: 65%", "Crew: 5"]
-            };
-
-            const currentImage = rocketElement.src.split('/').pop();
-            const rocketStats = stats[currentImage] || ["Geen data beschikbaar"];
-
-            // Maak een lijst met stats en voeg deze toe
-            const ul = document.createElement('ul');
-            rocketStats.forEach((stat, index) => {
-                const li = document.createElement('li');
-                li.style.animationDelay = `${index * 0.2}s`; // Voeg een delay toe voor elk item
-                li.textContent = stat;
-                ul.appendChild(li);
-            });
-
-            statsContainer.appendChild(ul);
-            statsContainer.classList.remove('hidden'); // Zorg dat het zichtbaar wordt
-        }
-
-        function startLandingAnimation(rocketElement, container) {
-            const button = container.querySelector('.action-button');
-            const slider = container.querySelector('.rocket-slider');
-            const arrows = container.querySelectorAll('.arrow');
-            const statsContainer = container.querySelector('.stats-container');
-
-            // Verberg de knoppen, de slider en de pijlen
-            button.classList.add('hidden');
-            slider.classList.add('hidden-slider');  // Verberg de slider direct
-            arrows.forEach(arrow => arrow.classList.add('hidden'));
-            slider.style.display = 'none';
-            // Start de animatie zonder de afbeelding te wijzigen
-            rocketElement.classList.add('rocket-landing');
-
-            // Wacht tot de animatie klaar is om stats te tonen
-            setTimeout(() => {
-                showRocketStats(rocketElement, statsContainer); // Toon de stats
-            }, 3000); // Duur van de animatie
-        }
-
-
-        // Linker raket
-        const leftRocket = document.querySelector('.linkerkutkant .rocket');
-        const leftSlider = document.querySelector('.linkerkutkant .rocket-slider');
-        leftSlider.addEventListener('input', () => changeRocketWithSlider(leftSlider, leftRocket));
-        document.querySelector('.linkerkutkant .action-button').addEventListener('click', () => {
-            startLandingAnimation(leftRocket, document.querySelector('.linkerkutkant'));
-        });
-
-        // Rechter raket
-        const rightRocket = document.querySelector('.rechterkutkant .rocket');
-        const rightSlider = document.querySelector('.rechterkutkant .rocket-slider');
-        rightSlider.addEventListener('input', () => changeRocketWithSlider(rightSlider, rightRocket));
-        document.querySelector('.rechterkutkant .action-button').addEventListener('click', () => {
-            startLandingAnimation(rightRocket, document.querySelector('.rechterkutkant'));
-        });
-
-
-
-        
-
-
-
+// Functie om de raketselectie op te slaan in localStorage
+function saveRocketSelection(player, sliderElement) {
+    const index = sliderElement.value;
+    const selectedRocket = rocketData[index];
+    localStorage.setItem(player, JSON.stringify(selectedRocket)); // Sla de raket op
     
-        document.querySelector('.linkerkutkant .action-button').addEventListener('click', () => {
-            startLandingAnimation(leftRocket, document.querySelector('.linkerkutkant'));
-        });
-    
-        document.querySelector('.rechterkutkant .action-button').addEventListener('click', () => {
-            startLandingAnimation(rightRocket, document.querySelector('.rechterkutkant'));
-        });
+}
+
+// Functie om de landingsanimatie te starten
+function startLandingAnimation(rocketElement, container) {
+    const button = container.querySelector('.action-button');
+    const slider = container.querySelector('.rocket-slider');
+    const arrows = container.querySelectorAll('.arrow'); // Eventueel pijlen als die worden gebruikt
+    const statsContainer = container.querySelector('.stats-container');
+
+    // Verberg de knoppen, sliders en andere elementen
+    button.classList.add('hidden');
+    slider.classList.add('hidden-slider'); // Verberg de slider
+    if (arrows) arrows.forEach(arrow => arrow.classList.add('hidden'));
+
+    // Start de landingsanimatie
+    rocketElement.classList.add('rocket-landing');
+
+    // Toon de statistieken na de animatie
+    setTimeout(() => {
+        showRocketStats(rocketElement, statsContainer); // Toon de stats na landing
+    }, 3000); // Duur van de animatie
+}
+
+// Functie om raketstatistieken te tonen
+function showRocketStats(rocketElement, statsContainer) {
+    // Wis oude stats
+    statsContainer.innerHTML = '';
+
+    // Definieer raketstatistieken (voor een uitgebreid voorbeeld)
+    const stats = {
+        "/raketfotos/H30.png": ["Snelheid: 10.000 km/u", "Brandstof: 80%", "Crew: 3"],
+        "/raketfotos/H40.png": ["Snelheid: 15.000 km/u", "Brandstof: 70%", "Crew: 4"],
+        "/raketfotos/H50.png": ["Snelheid: 20.000 km/u", "Brandstof: 60%", "Crew: 5"],
+        "/raketfotos/H60.png": ["Snelheid: 25.000 km/u", "Brandstof: 50%", "Crew: 6"],
+        "/raketfotos/H70.png": ["Snelheid: 30.000 km/u", "Brandstof: 40%", "Crew: 7"],
+    };
+
+    const currentImage = rocketElement.src.split('/').pop();
+    const rocketStats = stats[rocketElement.src] || ["Geen data beschikbaar"];
+
+    // Maak een lijst met stats en voeg toe aan de container
+    const ul = document.createElement('ul');
+    rocketStats.forEach((stat, index) => {
+        const li = document.createElement('li');
+        li.style.animationDelay = `${index * 0.2}s`; // Geleidelijk tonen van stats
+        li.textContent = stat;
+        ul.appendChild(li);
+    });
+
+    statsContainer.appendChild(ul);
+    statsContainer.classList.remove('hidden'); // Maak zichtbaar
+}
+
+// Linker raket (Speler 1)
+const leftRocket = document.querySelector('.linkerkutkant .rocket');
+const leftSlider = document.querySelector('.linkerkutkant .rocket-slider');
+leftSlider.addEventListener('input', () => changeRocketWithSlider(leftSlider, leftRocket));
+document.querySelector('.linkerkutkant .action-button').addEventListener('click', () => {
+    saveRocketSelection('player1', leftSlider); // Opslaan van selectie
+    startLandingAnimation(leftRocket, document.querySelector('.linkerkutkant')); // Landingsanimatie
+});
+
+// Rechter raket (Speler 2)
+const rightRocket = document.querySelector('.rechterkutkant .rocket');
+const rightSlider = document.querySelector('.rechterkutkant .rocket-slider');
+rightSlider.addEventListener('input', () => changeRocketWithSlider(rightSlider, rightRocket));
+document.querySelector('.rechterkutkant .action-button').addEventListener('click', () => {
+    saveRocketSelection('player2', rightSlider); // Opslaan van selectie
+    startLandingAnimation(rightRocket, document.querySelector('.rechterkutkant')); // Landingsanimatie
+});
+
     </script>
     
 </body>
