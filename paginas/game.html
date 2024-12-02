@@ -98,23 +98,26 @@
         #winner {
             font-size: 24px;
             font-weight: bold;
-            position: absolute;
-            top: 10px;
+            position: fixed;
+            top: 50%;
             left: 50%;
-            transform: translateX(-50%);
+            transform: translate(-50%, -50%); /* Zorgt ervoor dat het precies in het midden staat */
             color: white;
-            z-index: 1;
+            z-index: 2; /* Zorgt ervoor dat de tekst boven andere elementen wordt weergegeven */
+            text-align: center; /* Optioneel: maakt de tekst gecentreerd */
         }
+
     </style>
-</head>
+
 <body>
     <div class="background"></div>
 
     <nav>
         <a href="../index.html" class="clean-button">Go to Home</a>
-        <p id="timer" style="position: fixed; top: 10px; right: 10px; font-size: 24px; color: white;">Tijd: 0</p>
     </nav>
 
+    <p id="scoreBoard" style="position: fixed; bottom: 10px; right: 10px; font-size: 20px; color: white;">Score Speler 1: 0 | Score Speler 2: 0</p>
+    <p id="timer" style="position: fixed; top: 10px; right: 10px; font-size: 24px; color: white;">Tijd: 0</p>
     <div id="chooseRocketText">Kies een raket voor Speler 1:</div>
     <div id="rocketSelection">
         <div class="rocket-option" onclick="selectRocket('rocket1.png', 'player1')">
@@ -160,6 +163,21 @@
 
     <script>
         let timer = 0;
+        let scorePlayer1 = 0;
+        let scorePlayer2 = 0;
+        let finishLineImage = new Image();
+        finishLineImage.src = 'finish.png';  // Zorg ervoor dat het pad naar de afbeelding correct is
+
+
+        function drawFinishLine() {
+            // Zorg ervoor dat de afbeelding volledig geladen is voordat deze wordt getekend
+            if (finishLineImage.complete) {
+                // Stel de hoogte in op bijvoorbeeld 50px en de breedte gelijk aan de breedte van het canvas
+                const finishLineHeight = 20;
+                ctx.drawImage(finishLineImage, 0, 0, canvas.width, finishLineHeight);
+            }
+        }
+
     
         let timerStarted = false;  // Voeg deze lijn toe bovenaan je script
     
@@ -171,11 +189,11 @@
         }
     
         const rockets = {
-            'rocket1.png': 2, // Rocket 1 met snelheid 2
-            'rocket2.png': 4, // Rocket 2 met snelheid 4
-            'rocket3.png': 5, // Rocket 3 met snelheid 5
-            'rocket4.png': 6, // Rocket 4 met snelheid 6
-            'rocket5.png': 7  // Rocket 5 met snelheid 7
+            '/raketfotos/H30.png': 1, // Rocket 1 met snelheid 2
+            '/raketfotos/H40.png': 1.4, // Rocket 2 met snelheid 4
+            '/raketfotos/H50.png': 1.7, // Rocket 3 met snelheid 5
+            '/raketfotos/H60.png': 0.6, // Rocket 4 met snelheid 6
+            '/raketfotos/H70.png': 0.8,  // Rocket 5 met snelheid 7
         };
     
         const canvas = document.getElementById("gameCanvas");
@@ -235,28 +253,32 @@
         function gameLoop() {
             if (!gameOver) {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-    
+
+                // Teken de finishlijn
+                drawFinishLine();
+
                 // Teken raketten
                 if (player1Rocket) {
                     ctx.drawImage(player1Rocket.image, player1Rocket.x, player1Rocket.y, 30, 45);
                 }
-    
+
                 if (player2Rocket) {
                     ctx.drawImage(player2Rocket.image, player2Rocket.x, player2Rocket.y, 30, 45);
                 }
-    
+
                 // Teken obstakels
                 drawObstacles();
-    
+
                 // Verwerk beweging en botsingen
                 handleMovement();
                 checkCollision();
-                checkRocketCollision(); // Nieuwe functie om botsingen tussen raketten te detecteren
+                checkRocketCollision();
                 checkWinner();
-    
+
                 requestAnimationFrame(gameLoop);
             }
         }
+
     
         function handleMovement() {
             // Beweging voor Speler 1
@@ -283,6 +305,11 @@
                 player2Rocket.x = Math.max(0, Math.min(player2Rocket.x, canvas.width - 30));
             }
         }
+
+        function updateScoreBoard() {
+            document.getElementById("scoreBoard").innerText = `Score Speler 1: ${Math.round(scorePlayer1)} | Score Speler 2: ${Math.round(scorePlayer2)}`;
+        }
+
     
         function checkRocketCollision() {
             if (
@@ -301,27 +328,22 @@
             }
         }
     
-        // Controleer op botsingen met obstakels
         function checkCollision() {
             obstacles.forEach(obstacle => {
                 if (player1Rocket && player1Rocket.x < obstacle.x + obstacle.width &&
                     player1Rocket.x + 30 > obstacle.x && player1Rocket.y < obstacle.y + obstacle.height &&
                     player1Rocket.y + 45 > obstacle.y) {
                     // Botsing met speler 1
-                    gameOver = true;
-                    stopTimer();  // Stop de timer bij botsing
-                    document.getElementById("winner").innerText = "🚀 Speler 1 verliest!";
-                    document.getElementById("restartButton").style.display = "block";
+                    player1Rocket = null; // Speler 1 kan niet meer bewegen
+                    scorePlayer1 = 0; // Speler 1 krijgt 0 punten
                 }
-    
+
                 if (player2Rocket && player2Rocket.x < obstacle.x + obstacle.width &&
                     player2Rocket.x + 30 > obstacle.x && player2Rocket.y < obstacle.y + obstacle.height &&
                     player2Rocket.y + 45 > obstacle.y) {
                     // Botsing met speler 2
-                    stopTimer();  // Stop de timer bij botsing
-                    gameOver = true;
-                    document.getElementById("winner").innerText = "🚀 Speler 2 verliest!";
-                    document.getElementById("restartButton").style.display = "block";
+                    player2Rocket = null; // Speler 2 kan niet meer bewegen
+                    scorePlayer2 = 0; // Speler 2 krijgt 0 punten
                 }
             });
         }
@@ -361,7 +383,6 @@
             });
         }
     
-        // Functie om het spel opnieuw te starten
         function restartGame() {
             player1Selected = false;
             player2Selected = false;
@@ -376,25 +397,36 @@
             document.getElementById("rocketSelection").style.display = 'flex';
             document.getElementById("chooseRocketText").style.display = 'block';
             ctx.clearRect(0, 0, canvas.width, canvas.height); // Canvas schoonmaken
-            // Reset de timer naar zijn laatste waarde, zonder het terug te zetten naar 0
-            document.getElementById("timer").innerText = "Tijd: " + timer;  // Toon de laatste tijd
-            timerStarted = false;  // Zorg ervoor dat de timer opnieuw start bij de eerstvolgende toetsdruk
-        }
-    
-        // Controleer wie gewonnen heeft
+            
+            // Reset de timer en scores
+            clearInterval(timerInterval);
+            timer = 0;
+            document.getElementById("timer").innerText = "Tijd: " + timer;
+            scorePlayer1 = 0;
+            scorePlayer2 = 0;
+            timerStarted = false; 
+}
+
         function checkWinner() {
-            if (player1Rocket.y <= 0) {
+            if (player1Rocket && player1Rocket.y <= 0) {
+                // Speler 1 bereikt de finish
                 stopTimer();
-                document.getElementById("winner").innerText = "🚀 Speler 1 wint!";
-                gameOver = true;
-                document.getElementById("restartButton").style.display = "block";
-            } else if (player2Rocket.y <= 0) {
+                scorePlayer1 = (1 / timer) * 1000;
+                player1Rocket = null; // Speler 1 kan niet meer bewegen
+            }
+            if (player2Rocket && player2Rocket.y <= 0) {
+                // Speler 2 bereikt de finish
                 stopTimer();
-                document.getElementById("winner").innerText = "🚀 Speler 2 wint!";
-                gameOver = true;
-                document.getElementById("restartButton").style.display = "block";
+                scorePlayer2 = (1 / timer) * 1000;
+                player2Rocket = null; // Speler 2 kan niet meer bewegen
+            }
+
+            // Controleer of beide spelers klaar zijn
+            if (!player1Rocket && !player2Rocket) {
+                displayFinalScores();
             }
         }
+
     
         // Stop de timer bij het einde van het spel
         function stopTimer() {
@@ -422,6 +454,14 @@
         window.addEventListener('keyup', function(e) {
             delete keysPressed[e.key.toLowerCase()];
         });
+
+        function displayFinalScores() {
+            gameOver = true;
+            updateScoreBoard(); // Optioneel: update de scorebalk indien nodig
+            document.getElementById("winner").innerText = `Eindscore: Speler 1: ${Math.round(scorePlayer1)} | Speler 2: ${Math.round(scorePlayer2)}`;
+            document.getElementById("restartButton").style.display = "block"; // Laat de restart-knop zien
+        }
+
     </script>
     </body>
     </html>
