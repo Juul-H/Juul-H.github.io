@@ -116,43 +116,43 @@
         <a href="../index.html" class="clean-button">Go to Home</a>
     </nav>
 
-    <p id="scoreBoard" style="position: fixed; bottom: 10px; right: 10px; font-size: 20px; color: white;">Score Speler 1: 0 | Score Speler 2: 0</p>
+    <p id="scoreBoard" style="position: fixed; bottom: 10px; right: 10px; font-size: 20px; color: white;">Scorebord</p>
     <p id="timer" style="position: fixed; top: 10px; right: 10px; font-size: 24px; color: white;">Tijd: 0</p>
     <div id="chooseRocketText">Kies een raket voor Speler 1:</div>
     <div id="rocketSelection">
-        <div class="rocket-option" onclick="selectRocket('rocket1.png', 'player1')">
-            <img src="rocket1.png" alt="Rocket 1">
+        <div class="rocket-option" onclick="selectRocket('/raketfotos/H30.png', 'player1')">
+            <img src="/raketfotos/H30.png" alt="Rocket 1">
         </div>
-        <div class="rocket-option" onclick="selectRocket('rocket2.png', 'player1')">
-            <img src="rocket2.png" alt="Rocket 2">
+        <div class="rocket-option" onclick="selectRocket('/raketfotos/H40.png', 'player1')">
+            <img src="/raketfotos/H40.png" alt="Rocket 2">
         </div>
-        <div class="rocket-option" onclick="selectRocket('rocket3.png', 'player1')">
-            <img src="rocket3.png" alt="Rocket 3">
+        <div class="rocket-option" onclick="selectRocket('/raketfotos/H50.png', 'player1')">
+            <img src="/raketfotos/H50.png" alt="Rocket 3">
         </div>
-        <div class="rocket-option" onclick="selectRocket('rocket4.png', 'player1')">
-            <img src="rocket4.png" alt="Rocket 4">
+        <div class="rocket-option" onclick="selectRocket('/raketfotos/H60.png', 'player1')">
+            <img src="/raketfotos/H60.png" alt="Rocket 4">
         </div>
-        <div class="rocket-option" onclick="selectRocket('rocket5.png', 'player1')">
-            <img src="rocket5.png" alt="Rocket 5">
+        <div class="rocket-option" onclick="selectRocket('/raketfotos/H70.png', 'player1')">
+            <img src="/raketfotos/H70.png" alt="Rocket 5">
         </div>
     </div>
 
     <div id="chooseRocketText2" style="display: none;">Kies een raket voor Speler 2:</div>
     <div id="rocketSelection2" style="display: none;">
-        <div class="rocket-option" onclick="selectRocket('rocket1.png', 'player2')">
-            <img src="rocket1.png" alt="Rocket 1">
+        <div class="rocket-option" onclick="selectRocket('/raketfotos/H30.png', 'player2')">
+            <img src="/raketfotos/H30.png" alt="Rocket 1">
         </div>
-        <div class="rocket-option" onclick="selectRocket('rocket2.png', 'player2')">
-            <img src="rocket2.png" alt="Rocket 2">
+        <div class="rocket-option" onclick="selectRocket('/raketfotos/H40.png', 'player2')">
+            <img src="/raketfotos/H40.png" alt="Rocket 2">
         </div>
-        <div class="rocket-option" onclick="selectRocket('rocket3.png', 'player2')">
-            <img src="rocket3.png" alt="Rocket 3">
+        <div class="rocket-option" onclick="selectRocket('/raketfotos/H50.png', 'player2')">
+            <img src="/raketfotos/H50.png" alt="Rocket 3">
         </div>
-        <div class="rocket-option" onclick="selectRocket('rocket4.png', 'player2')">
-            <img src="rocket4.png" alt="Rocket 4">
+        <div class="rocket-option" onclick="selectRocket('/raketfotos/H60.png', 'player2')">
+            <img src="/raketfotos/H60.png" alt="Rocket 4">
         </div>
-        <div class="rocket-option" onclick="selectRocket('rocket5.png', 'player2')">
-            <img src="rocket5.png" alt="Rocket 5">
+        <div class="rocket-option" onclick="selectRocket('/raketfotos/H70.png', 'player2')">
+            <img src="/raketfotos/H70.png" alt="Rocket 5">
         </div>
     </div>
 
@@ -192,8 +192,8 @@
             '/raketfotos/H30.png': 1, // Rocket 1 met snelheid 2
             '/raketfotos/H40.png': 1.4, // Rocket 2 met snelheid 4
             '/raketfotos/H50.png': 1.7, // Rocket 3 met snelheid 5
-            '/raketfotos/H60.png': 0.6, // Rocket 4 met snelheid 6
-            '/raketfotos/H70.png': 0.8,  // Rocket 5 met snelheid 7
+            '/raketfotos/H60.png': 2, // Rocket 4 met snelheid 6
+            '/raketfotos/H70.png': 2.2,  // Rocket 5 met snelheid 7
         };
     
         const canvas = document.getElementById("gameCanvas");
@@ -307,7 +307,7 @@
         }
 
         function updateScoreBoard() {
-            document.getElementById("scoreBoard").innerText = `Score Speler 1: ${Math.round(scorePlayer1)} | Score Speler 2: ${Math.round(scorePlayer2)}`;
+            document.getElementById("scoreBoard").innerText = `Score Speler 1: ${Math.round(scorePlayer1)} \n Score Speler 2: ${Math.round(scorePlayer2)}`;
         }
 
     
@@ -455,14 +455,76 @@
             delete keysPressed[e.key.toLowerCase()];
         });
 
-        function displayFinalScores() {
-            gameOver = true;
-            updateScoreBoard(); // Optioneel: update de scorebalk indien nodig
-            document.getElementById("winner").innerText = `Eindscore: Speler 1: ${Math.round(scorePlayer1)} | Speler 2: ${Math.round(scorePlayer2)}`;
-            document.getElementById("restartButton").style.display = "block"; // Laat de restart-knop zien
+        let highScores = {
+            player1: 0,
+            player2: 0
+        };
+
+        // Laad hoge scores uit localStorage bij het starten van de pagina
+        function loadHighScores() {
+            const storedScores = JSON.parse(localStorage.getItem('highScores'));
+            if (storedScores) {
+                highScores = storedScores;
+            }
+            updateHighScoreBoard(); // Toon meteen de juiste scores
         }
 
+        // Update de weergave van het scorebord
+        function updateHighScoreBoard() {
+            document.getElementById("scoreBoard").innerText =
+                `Hoogste Scores: \n Speler 1: ${Math.round(highScores.player1)} \n Speler 2: ${Math.round(highScores.player2)}`;
+        }
+
+        // Controleer en update de hoogste scores
+        function updateScores() {
+            if (scorePlayer1 > highScores.player1) {
+                highScores.player1 = scorePlayer1;
+            }
+            if (scorePlayer2 > highScores.player2) {
+                highScores.player2 = scorePlayer2;
+            }
+
+            // Sla de hoogste scores op in localStorage
+            localStorage.setItem('highScores', JSON.stringify(highScores));
+
+            // Update de weergave direct
+            updateHighScoreBoard();
+        }
+
+        // Reset de hoge scores
+        function resetHighScores() {
+            highScores = { player1: 0, player2: 0 };
+            localStorage.removeItem('highScores');
+            updateHighScoreBoard(); // Werk het scorebord direct bij
+            alert('Highscores zijn gereset!');
+        }
+
+        // Voeg een resetknop toe aan de pagina
+        const resetButton = document.createElement('button');
+        resetButton.innerText = "Reset Hoge Scores";
+        resetButton.style.position = "fixed";
+        resetButton.style.bottom = "100px";
+        resetButton.style.right = "20px";
+        resetButton.style.backgroundColor = "red";
+        resetButton.style.color = "white";
+        resetButton.style.padding = "10px";
+        resetButton.style.border = "none";
+        resetButton.style.borderRadius = "8px";
+        resetButton.style.cursor = "pointer";
+        resetButton.addEventListener('click', resetHighScores);
+        document.body.appendChild(resetButton);
+
+        // Roep updateScores aan bij het einde van het spel
+        function displayFinalScores() {
+            gameOver = true;
+            updateScores(); // Controleer en update hoge scores
+            document.getElementById("winner").innerText = 
+                `Eindscore: \n Speler 1: ${Math.round(scorePlayer1)} \n Speler 2: ${Math.round(scorePlayer2)}`;
+            document.getElementById("restartButton").style.display = "block";
+        }
+
+        // Bij het laden van de pagina
+        window.onload = loadHighScores;
     </script>
-    </body>
-    </html>
-    
+</body>
+</html>
