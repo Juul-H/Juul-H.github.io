@@ -203,8 +203,8 @@
     <div class="container">
         <!-- Linkerkutkant met raket, pijlen en knop -->
         <div class="linkerkutkant">
-            <input type="range" class="rocket-slider" min="0" max="1" step="1" value="0">
-            <img class="rocket" src="rocket1.png" alt="Raket 1">
+            <input type="range" class="rocket-slider" min="0" max="4" step="1" value="0">
+            <img class="rocket" src="/raketfotos/H30.png" alt="H30">
             <div class="button-container">
                 <button class="action-button">Select</button>
             </div>
@@ -212,8 +212,8 @@
         </div>
             
         <div class="rechterkutkant">
-            <input type="range" class="rocket-slider" min="0" max="1" step="1" value="0">
-            <img class="rocket" src="rocket1.png" alt="Raket 2">
+            <input type="range" class="rocket-slider" min="0" max="4" step="1" value="0">
+            <img class="rocket" src="/raketfotos/H30.png" alt="H30">
             <div class="button-container">
                 <button class="action-button">Select</button>
             </div>
@@ -225,7 +225,7 @@
 
     <script>
         function changeRocketWithSlider(sliderElement, rocketElement) {
-            const rocketImages = ["rocket1.png", "rocket2.jpeg"];
+            const rocketImages = ["/raketfotos/H30.png", "/raketfotos/H40.png", "/raketfotos/H50.png", "/raketfotos/H60.png", "/raketfotos/H70.png"];
             const currentIndex = sliderElement.value;  // Haal de waarde van de slider op
             rocketElement.src = rocketImages[currentIndex];
         }
