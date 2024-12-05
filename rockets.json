@@ -1,0 +1,7 @@
+[
+    { "name": "Rocket 1", "image": "/raketfotos/H30.png", "speed": 1 },
+    { "name": "Rocket 2", "image": "/raketfotos/H40.png", "speed": 1.4 },
+    { "name": "Rocket 3", "image": "/raketfotos/H50.png", "speed": 1.7 },
+    { "name": "Rocket 4", "image": "/raketfotos/H60.png", "speed": 2 },
+    { "name": "Rocket 5", "image": "/raketfotos/H70.png", "speed": 2.2 }
+]
