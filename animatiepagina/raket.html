@@ -25,12 +25,16 @@
             top: 10px;
             left: 10px;
         }
+        .clean-button:hover {
+            background-color: #358038;
+        }
+        
 
         .clean-button2 {
             display: inline-block;
             padding: 10px 20px;
             margin: 0;
-            background-color: #5c4caf;
+            background-color: #42aaff;
             color: white;
             text-decoration: none;
             border-radius: 8px;
@@ -42,6 +46,9 @@
             bottom: 150px; /* Plaatst de knop 10px boven de onderkant */
             left: 50%; /* Plaatst de knop op 50% van de breedte van de viewport */
             transform: translateX(-50%); /* Centreert de knop horizontaal */
+        }
+        .clean-button2:hover {
+            background-color: #2f74ad;
         }
 
 
@@ -135,7 +142,7 @@
 
         .action-button {
             padding: 10px 20px;
-            background-color: #4CAF50;
+            background-color: rgb(0, 0, 191);
             color: white;
             border: none;
             cursor: pointer;
@@ -145,7 +152,7 @@
         }
 
         .action-button:hover {
-            background-color: #45a049;
+            background-color: rgb(0, 0, 53);
         }
 
     
@@ -218,8 +225,8 @@
 </head>
 <body>
     <nav>
-        <a href="/index.html" class="clean-button">Home</a>
-        <a href="/paginas/game.html" class="clean-button2">Start!</a>
+        <a href="/index.html" class="clean-button">Startpagina</a>
+        <a href="/paginas/game.html" class="clean-button2">Speel!</a>
     </nav>
     <div class="container">
         <!-- Linkerkutkant met raket, pijlen en knop -->
@@ -227,7 +234,7 @@
             <input type="range" class="rocket-slider" min="0" max="29" step="1" value="0">
             <img class="rocket" src="/raketfotos/H30.png" alt="H30">
             <div class="button-container">
-                <button class="action-button">Select</button>
+                <button class="action-button">Selecteer je raket</button>
             </div>
             <div class="stats-container hidden"></div>
         </div>
@@ -236,7 +243,7 @@
             <input type="range" class="rocket-slider" min="0" max="29" step="1" value="0">
             <img class="rocket" src="/raketfotos/H30.png" alt="H30">
             <div class="button-container">
-                <button class="action-button">Select</button>
+                <button class="action-button">Selecteer je raket</button>
             </div>
             <div class="stats-container hidden"></div>
         </div>

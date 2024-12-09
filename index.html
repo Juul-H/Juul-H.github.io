@@ -162,7 +162,7 @@
 <body>
 
     <nav>
-        <a href="/animatiepagina/raket.html" class="clean-button">Game</a>
+        <a href="/animatiepagina/raket.html" class="clean-button">Spelletje</a>
     </nav>
 
     <div class="background-container">
@@ -175,120 +175,116 @@
     <div class="content-container">
         <!-- Stats Container -->
         <div class="stats-container" id="stats-container">
-            <h3>Stats</h3>
+            <h3>Statistieken</h3>
             <ul id="stats-list">
-                <li>Nosecone Height: 30m</li>
-                <li>Drag Coefficient: 2.54569</li>
-                <li>Angle: 118.07248693585295°</li>
+                <li>Neuskegel: 30m</li>
+                <li>Luchtweerstandscoëfficiënt: 2.54569</li>
+                <li>Hoek: 118.07248693585295°</li>
             </ul>
         </div>
 
         <!-- Image Slider -->
         <div class="image-slider-container">
-            <h2 id="list-title" style="color: rgb(255, 255, 255);">RocketsAngle</h2>
+            <h2 id="list-title" style="color: rgb(255, 255, 255);">Rechthoekige raketten</h2>
             <img id="slider-image" src="stroomfotos/H30Stroom.png" alt="Slider Image">
             <input type="range" min="0" max="13" value="0" class="slider" id="image-slider">
         </div>
     </div>
 
     <!-- Switch Button -->
-    <button class="switch-button" id="switch-button">volgende</button>
-    <button class="switch-button" id="reverse-button" style="top: 60%;">vorige</button>
+    <button class="switch-button" id="switch-button">Volgende</button>
+    <button class="switch-button" id="reverse-button" style="top: 60%;">Vorige</button>
 
     <script>
         const lists = {
             RocketsAngle: [
                 {
                     img: "stroomfotos/H30Stroom.png",
-                    stats: ["Nosecone Height: 30m", "Drag Coefficient: 2.54569", "Angle: 118.07248693585295°"]
+                    stats: ["Neuskegel: 30m", "Luchtweerstandscoëfficiënt: 2.54569", "Hoek: 118.07248693585295°"]
                 },
                 {
                     img: "stroomfotos/H40Stroom.png",
-                    stats: ["Nosecone Height: 40m", "Drag Coefficient: 2.01683", "Angle: 102.68038349181981°"]
+                    stats: ["Neuskegel: 40m", "Luchtweerstandscoëfficiënt: 2.01683", "Hoek: 102.68038349181981°"]
                 },
                 {
                     img: "stroomfotos/H50Stroom.png",
-                    stats: ["Nosecone Height: 50m", "Drag Coefficient: 1.60192", "Angle: 90.0°"]
+                    stats: ["Neuskegel: 50m", "Luchtweerstandscoëfficiënt: 1.60192", "Hoek: 90.0°"]
                 },
                 {
                     img: "stroomfotos/H60Stroom.png",
-                    stats: ["Nosecone Height: 60m", "Drag Coefficient: 1.23619", "Angle: 79.6111421845304°"]
+                    stats: ["Neuskegel: 60m", "Luchtweerstandscoëfficiënt: 1.23619", "Hoek: 79.6111421845304°"]
                 },
                 {
                     img: "stroomfotos/H70Stroom.png",
-                    stats: ["Nosecone Height: 70m", "Drag Coefficient: 0.911735", "Angle: 71.07535558394876°"]
+                    stats: ["Neuskegel: 70m", "Luchtweerstandscoëfficiënt: 0.911735", "Hoek: 71.07535558394876°"]
                 },
                 {
                     img: "stroomfotos/H80Stroom.png",
-                    stats: ["Nosecone Height: 80m", "Drag Coefficient: 0.599391", "Angle: 64.01076641616699°"]
+                    stats: ["Neuskegel: 80m", "Luchtweerstandscoëfficiënt: 0.599391", "Hoek: 64.01076641616699°"]
                 },
                 {
                     img: "stroomfotos/H90Stroom.png",
-                    stats: ["Nosecone Height: 90m", "Drag Coefficient: 0.362261", "Angle: 58.10920819815429°"]
+                    stats: ["Neuskegel: 90m", "Luchtweerstandscoëfficiënt: 0.362261", "Hoek: 58.10920819815429°"]
                 },
                 {
                     img: "stroomfotos/H100Stroom.png",
-                    stats: ["Nosecone Height: 100m", "Drag Coefficient: 0.276042", "Angle: 53.13010235415598°"]
+                    stats: ["Neuskegel: 100m", "Luchtweerstandscoëfficiënt: 0.276042", "Hoek: 53.13010235415598°"]
                 },
                 {
                     img: "stroomfotos/H110Stroom.png",
-                    stats: ["Nosecone Height: 110m", "Drag Coefficient: 0.23921", "Angle: 48.887909560833066°"]
+                    stats: ["Neuskegel: 110m", "Luchtweerstandscoëfficiënt: 0.23921", "Hoek: 48.887909560833066°"]
                 },
                 {
                     img: "stroomfotos/H120Stroom.png",
-                    stats: ["Nosecone Height: 120m", "Drag Coefficient: 0.216144", "Angle: 45.23972989608086°"]
+                    stats: ["Neuskegel: 120m", "Luchtweerstandscoëfficiënt: 0.216144", "Hoek: 45.23972989608086°"]
                 },
                 {
                     img: "stroomfotos/H130Stroom.png",
-                    stats: ["Nosecone Height: 130m", "Drag Coefficient: 0.199699", "Angle: 42.07502205084364°"]
+                    stats: ["Neuskegel: 130m", "Luchtweerstandscoëfficiënt: 0.199699", "Hoek: 42.07502205084364°"]
                 },
                 {
                     img: "stroomfotos/H140Stroom.png",
-                    stats: ["Nosecone Height: 140m", "Drag Coefficient: 0.18714", "Angle: 39.307648116106606°"]
+                    stats: ["Neuskegel: 140m", "Luchtweerstandscoëfficiënt: 0.18714", "Hoek: 39.307648116106606°"]
                 },
                 {
                     img: "stroomfotos/H200Stroom.png",
-                    stats: ["Nosecone Height: 200m", "Drag Coefficient: 0.146356", "Angle: 28.072486935852936°"]
+                    stats: ["Neuskegel: 200m", "Luchtweerstandscoëfficiënt: 0.146356", "Hoek: 28.072486935852936°"]
                 },
                 {
                     img: "stroomfotos/H300Stroom.png",
-                    stats: ["Nosecone Height: 300m", "Drag Coefficient: 0.119736", "Angle: 18.924644416051223°"]
+                    stats: ["Neuskegel: 300m", "Luchtweerstandscoëfficiënt: 0.119736", "Hoek: 18.924644416051223°"]
                 }
             ],
             RocketsEllipse: [
-                { img: "stroomfotos/noseconeH30Stroom.png", stats: ["Nosecone Height: 30m", "Drag Coefficient: 0.4783134", "d: 30.62"] },
-                { img: "stroomfotos/noseconeH40Stroom.png", stats: ["Nosecone Height: 40m", "Drag Coefficient: 0.4072725", "d: 40.82"] },
-                { img: "stroomfotos/noseconeH50Stroom.png", stats: ["Nosecone Height: 50m", "Drag Coefficient: 0.3734961", "d: 51.03"] },
-                { img: "stroomfotos/noseconeH60Stroom.png", stats: ["Nosecone Height: 60m", "Drag Coefficient: 0.3486993", "d: 61.24"] },
-                { img: "stroomfotos/noseconeH70Stroom.png", stats: ["Nosecone Height: 70m", "Drag Coefficient: 0.3274902", "d: 71.44"] },
-                { img: "stroomfotos/noseconeH80Stroom.png", stats: ["Nosecone Height: 80m", "Drag Coefficient: 0.3120851", "d: 81.65"] },
-                { img: "stroomfotos/noseconeH90Stroom.png", stats: ["Nosecone Height: 90m", "Drag Coefficient: 0.2966058", "d: 91.86"] },
-                { img: "stroomfotos/noseconeH100Stroom.png", stats: ["Nosecone Height: 100m", "Drag Coefficient: 0.2851792", "d: 102.06"] },
-                { img: "stroomfotos/noseconeH110Stroom.png", stats: ["Nosecone Height: 110m", "Drag Coefficient: 0.2732204", "d: 112.27"] },
-                { img: "stroomfotos/noseconeH120Stroom.png", stats: ["Nosecone Height: 120m", "Drag Coefficient: 0.2642031", "d: 122.47"] },
-                { img: "stroomfotos/noseconeH130Stroom.png", stats: ["Nosecone Height: 130m", "Drag Coefficient: 0.2554076", "d: 132.68"] },
-                { img: "stroomfotos/noseconeH140Stroom.png", stats: ["Nosecone Height: 140m", "Drag Coefficient: 0.2473420", "d: 142.89"] },
-                { img: "stroomfotos/noseconeH150Stroom.png", stats: ["Nosecone Height: 150m", "Drag Coefficient: 0.2401075", "d: 153.09"] },
-                { img: "stroomfotos/noseconeH160Stroom.png", stats: ["Nosecone Height: 160m", "Drag Coefficient: 0.2324484", "d: 163.30"] },
-                { img: "stroomfotos/noseconeH170Stroom.png", stats: ["Nosecone Height: 170m", "Drag Coefficient: 0.2263531", "d: 173.51"] },
-                { img: "stroomfotos/noseconeH180Stroom.png", stats: ["Nosecone Height: 180m", "Drag Coefficient: 0.2204913", "d: 183.71"] },
-                { img: "stroomfotos/noseconeH190Stroom.png", stats: ["Nosecone Height: 190m", "Drag Coefficient: 0.2168202", "d: 193.92"] },
-                { img: "stroomfotos/noseconeH200Stroom.png", stats: ["Nosecone Height: 200m", "Drag Coefficient: 0.2118401", "d: 204.12"] },
-                { img: "stroomfotos/noseconeH250Stroom.png", stats: ["Nosecone Height: 250m", "Drag Coefficient: 0.1924960", "d: 255.16"] },
-                { img: "stroomfotos/noseconeH300Stroom.png", stats: ["Nosecone Height: 300m", "Drag Coefficient: 0.1788653", "d: 306.19"] }
+                { img: "stroomfotos/noseconeH30Stroom.png", stats: ["Neuskegel: 30m", "Luchtweerstandscoëfficiënt: 0.4783134", "d: 30.62"] },
+                { img: "stroomfotos/noseconeH40Stroom.png", stats: ["Neuskegel: 40m", "Luchtweerstandscoëfficiënt: 0.4072725", "d: 40.82"] },
+                { img: "stroomfotos/noseconeH50Stroom.png", stats: ["Neuskegel: 50m", "Luchtweerstandscoëfficiënt: 0.3734961", "d: 51.03"] },
+                { img: "stroomfotos/noseconeH60Stroom.png", stats: ["Neuskegel: 60m", "Luchtweerstandscoëfficiënt: 0.3486993", "d: 61.24"] },
+                { img: "stroomfotos/noseconeH70Stroom.png", stats: ["Neuskegel: 70m", "Luchtweerstandscoëfficiënt: 0.3274902", "d: 71.44"] },
+                { img: "stroomfotos/noseconeH80Stroom.png", stats: ["Neuskegel: 80m", "Luchtweerstandscoëfficiënt: 0.3120851", "d: 81.65"] },
+                { img: "stroomfotos/noseconeH90Stroom.png", stats: ["Neuskegel: 90m", "Luchtweerstandscoëfficiënt: 0.2966058", "d: 91.86"] },
+                { img: "stroomfotos/noseconeH100Stroom.png", stats: ["Neuskegel: 100m", "Luchtweerstandscoëfficiënt: 0.2851792", "d: 102.06"] },
+                { img: "stroomfotos/noseconeH110Stroom.png", stats: ["Neuskegel: 110m", "Luchtweerstandscoëfficiënt: 0.2732204", "d: 112.27"] },
+                { img: "stroomfotos/noseconeH120Stroom.png", stats: ["Neuskegel: 120m", "Luchtweerstandscoëfficiënt: 0.2642031", "d: 122.47"] },
+                { img: "stroomfotos/noseconeH130Stroom.png", stats: ["Neuskegel: 130m", "Luchtweerstandscoëfficiënt: 0.2554076", "d: 132.68"] },
+                { img: "stroomfotos/noseconeH140Stroom.png", stats: ["Neuskegel: 140m", "Luchtweerstandscoëfficiënt: 0.2473420", "d: 142.89"] },
+                { img: "stroomfotos/noseconeH150Stroom.png", stats: ["Neuskegel: 150m", "Luchtweerstandscoëfficiënt: 0.2401075", "d: 153.09"] },
+                { img: "stroomfotos/noseconeH160Stroom.png", stats: ["Neuskegel: 160m", "Luchtweerstandscoëfficiënt: 0.2324484", "d: 163.30"] },
+                { img: "stroomfotos/noseconeH170Stroom.png", stats: ["Neuskegel: 170m", "Luchtweerstandscoëfficiënt: 0.2263531", "d: 173.51"] },
+                { img: "stroomfotos/noseconeH180Stroom.png", stats: ["Neuskegel: 180m", "Luchtweerstandscoëfficiënt: 0.2204913", "d: 183.71"] },
+                { img: "stroomfotos/noseconeH190Stroom.png", stats: ["Neuskegel: 190m", "Luchtweerstandscoëfficiënt: 0.2168202", "d: 193.92"] },
+                { img: "stroomfotos/noseconeH200Stroom.png", stats: ["Neuskegel: 200m", "Luchtweerstandscoëfficiënt: 0.2118401", "d: 204.12"] },
+                { img: "stroomfotos/noseconeH250Stroom.png", stats: ["Neuskegel: 250m", "Luchtweerstandscoëfficiënt: 0.1924960", "d: 255.16"] },
+                { img: "stroomfotos/noseconeH300Stroom.png", stats: ["Neuskegel: 300m", "Luchtweerstandscoëfficiënt: 0.1788653", "d: 306.19"] }
             ],
 
-            SupersonicRocketsAngle: [
-                { img: "stroomfotos/SR30.png", stats: ["Rechte Hoek Height: 30m", "Drag Coefficient: 2.359294", "Angle: 115.0°"] },
-                { img: "stroomfotos/SR40.png", stats: ["Rechte Hoek Height: 40m", "Drag Coefficient: 1.700", "Angle: 95.0°"] },
+            SupersonicRockets: [
+                { img: "stroomfotos/supersonic_hoekStroom.png", stats: ["Neuskegel: 90m", "Luchtweerstandscoëfficiënt: 2.359294", "Hoek: 58.10920819815429°"] },
+                { img: "stroomfotos/supersonic_ellipsStroom.png", stats: ["Neuskegel: 150m", "Luchtweerstandscoëfficiënt: 2.359294", "d: 153.09"] },
             ],
-            SupersonicRocketsEllipse: [
-                { img: "stroomfotos/SC30.png", stats: ["Cylinder Height: 30m", "Drag Coefficient: 1.200", "Angle: 90.0°"] },
-                { img: "stroomfotos/SC40.png", stats: ["Cylinder Height: 40m", "Drag Coefficient: 1.100", "Angle: 85.0°"] },
-            ]
         };
 
-            const order = ["RocketsAngle", "RocketsEllipse", "SupersonicRocketsAngle", "SupersonicRocketsEllipse"];
+            const order = ["RocketsAngle", "RocketsEllipse", "SupersonicRockets"];
             let currentIndex = 0;
 
             const slider = document.getElementById('image-slider');
@@ -324,7 +320,15 @@
                 statsList.innerHTML = currentList[0].stats.map(stat => `<li>${stat}</li>`).join('');
 
                 // Update the title based on the current list
-                listTitle.textContent = order[currentIndex]; // Update title dynamically
+                const currentListName = order[currentIndex]; // Huidige lijstnaam
+        if (currentListName === "RocketsAngle") {
+            listTitle.textContent = "Rechthoekige raketten";
+        } else if (currentListName === "RocketsEllipse") {
+            listTitle.textContent = "Ellipsvormige raketten";
+        } else if (currentListName === "SupersonicRockets") {
+        listTitle.textContent = "Supersonische raketten";
+        }
+                
             }
 
             switchButton.addEventListener('click', function () {
