@@ -30,7 +30,7 @@
             display: inline-block;
             padding: 10px 20px;
             margin: 0;
-            background-color: #4CAF50;
+            background-color: #5c4caf;
             color: white;
             text-decoration: none;
             border-radius: 8px;
@@ -39,9 +39,11 @@
             cursor: pointer;
             position: fixed;
             z-index: 1000;
-            top: 10px;
-            right: 10px;
+            bottom: 150px; /* Plaatst de knop 10px boven de onderkant */
+            left: 50%; /* Plaatst de knop op 50% van de breedte van de viewport */
+            transform: translateX(-50%); /* Centreert de knop horizontaal */
         }
+
 
         .rocket-slider {
             width: 80%;
@@ -217,7 +219,7 @@
 <body>
     <nav>
         <a href="/index.html" class="clean-button">Home</a>
-        <a href="/paginas/game.html" class="clean-button2">Game</a>
+        <a href="/paginas/game.html" class="clean-button2">Start!</a>
     </nav>
     <div class="container">
         <!-- Linkerkutkant met raket, pijlen en knop -->
