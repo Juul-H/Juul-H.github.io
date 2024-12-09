@@ -224,7 +224,7 @@
     <div class="container">
         <!-- Linkerkutkant met raket, pijlen en knop -->
         <div class="linkerkutkant">
-            <input type="range" class="rocket-slider" min="0" max="4" step="1" value="0">
+            <input type="range" class="rocket-slider" min="0" max="29" step="1" value="0">
             <img class="rocket" src="/raketfotos/H30.png" alt="H30">
             <div class="button-container">
                 <button class="action-button">Select</button>
@@ -233,7 +233,7 @@
         </div>
             
         <div class="rechterkutkant">
-            <input type="range" class="rocket-slider" min="0" max="4" step="1" value="0">
+            <input type="range" class="rocket-slider" min="0" max="29" step="1" value="0">
             <img class="rocket" src="/raketfotos/H30.png" alt="H30">
             <div class="button-container">
                 <button class="action-button">Select</button>
@@ -252,7 +252,37 @@ const rocketData = [
     { src: "/raketfotos/H50.png", speed: 1.7 },
     { src: "/raketfotos/H60.png", speed: 2 },
     { src: "/raketfotos/H70.png", speed: 2.2 },
+    { src: "/raketfotos/H80.png", speed: 2.5 },
+    { src: "/raketfotos/H90.png", speed: 2.7 },
+    { src: "/raketfotos/H100.png", speed: 3 },
+    { src: "/raketfotos/H110.png", speed: 3.2 },
+    { src: "/raketfotos/H120.png", speed: 3.5 },
+    { src: "/raketfotos/H130.png", speed: 3.7 },
+    { src: "/raketfotos/H140.png", speed: 4 },
+    { src: "/raketfotos/H200.png", speed: 4.5 },
+    { src: "/raketfotos/H300.png", speed: 5 },
+    { src: "/raketfotos/noseconeH30.png", speed: 1.1 },
+    { src: "/raketfotos/noseconeH40.png", speed: 1.3 },
+    { src: "/raketfotos/noseconeH50.png", speed: 1.6 },
+    { src: "/raketfotos/noseconeH60.png", speed: 1.9 },
+    { src: "/raketfotos/noseconeH70.png", speed: 2.1 },
+    { src: "/raketfotos/noseconeH80.png", speed: 2.4 },
+    { src: "/raketfotos/noseconeH90.png", speed: 2.6 },
+    { src: "/raketfotos/noseconeH100.png", speed: 2.9 },
+    { src: "/raketfotos/noseconeH110.png", speed: 3.1 },
+    { src: "/raketfotos/noseconeH120.png", speed: 3.4 },
+    { src: "/raketfotos/noseconeH130.png", speed: 3.6 },
+    { src: "/raketfotos/noseconeH140.png", speed: 3.9 },
+    { src: "/raketfotos/noseconeH150.png", speed: 4.1 },
+    { src: "/raketfotos/noseconeH160.png", speed: 4.3 },
+    { src: "/raketfotos/noseconeH170.png", speed: 4.6 },
+    { src: "/raketfotos/noseconeH180.png", speed: 4.8 },
+    { src: "/raketfotos/noseconeH190.png", speed: 5 },
+    { src: "/raketfotos/noseconeH200.png", speed: 5.2 },
+    { src: "/raketfotos/noseconeH250.png", speed: 5.5 },
+    { src: "/raketfotos/noseconeH300.png", speed: 5.8 },
 ];
+
 
 // Functie om de afbeelding te veranderen met de slider
 function changeRocketWithSlider(sliderElement, rocketElement) {
@@ -289,24 +319,53 @@ function startLandingAnimation(rocketElement, container) {
     }, 3000); // Duur van de animatie
 }
 
-// Functie om raketstatistieken te tonen
 function showRocketStats(rocketElement, statsContainer) {
     // Wis oude stats
     statsContainer.innerHTML = '';
 
-    // Definieer raketstatistieken (voor een uitgebreid voorbeeld)
+
     const stats = {
-        "/raketfotos/H30.png": ["Snelheid: 10.000 km/u", "Brandstof: 80%", "Crew: 3"],
-        "/raketfotos/H40.png": ["Snelheid: 15.000 km/u", "Brandstof: 70%", "Crew: 4"],
-        "/raketfotos/H50.png": ["Snelheid: 20.000 km/u", "Brandstof: 60%", "Crew: 5"],
-        "/raketfotos/H60.png": ["Snelheid: 25.000 km/u", "Brandstof: 50%", "Crew: 6"],
-        "/raketfotos/H70.png": ["Snelheid: 30.000 km/u", "Brandstof: 40%", "Crew: 7"],
-    };
+    "/raketfotos/H30.png": ["Nosecone Height: 30m", "Drag Coefficient: 2.54569", "Angle: 118.07248693585295°"],
+    "/raketfotos/H40.png": ["Nosecone Height: 40m", "Drag Coefficient: 2.01683", "Angle: 102.68038349181981°"],
+    "/raketfotos/H50.png": ["Nosecone Height: 50m", "Drag Coefficient: 1.60192", "Angle: 90.0°"],
+    "/raketfotos/H60.png": ["Nosecone Height: 60m", "Drag Coefficient: 1.23619", "Angle: 79.6111421845304°"],
+    "/raketfotos/H70.png": ["Nosecone Height: 70m", "Drag Coefficient: 0.911735", "Angle: 71.07535558394876°"],
+    "/raketfotos/H80.png": ["Nosecone Height: 80m", "Drag Coefficient: 0.599391", "Angle: 64.01076641616699°"],
+    "/raketfotos/H90.png": ["Nosecone Height: 90m", "Drag Coefficient: 0.362261", "Angle: 58.10920819815429°"],
+    "/raketfotos/H100.png": ["Nosecone Height: 100m", "Drag Coefficient: 0.276042", "Angle: 53.13010235415598°"],
+    "/raketfotos/H110.png": ["Nosecone Height: 110m", "Drag Coefficient: 0.23921", "Angle: 48.887909560833066°"],
+    "/raketfotos/H120.png": ["Nosecone Height: 120m", "Drag Coefficient: 0.216144", "Angle: 45.23972989608086°"],
+    "/raketfotos/H130.png": ["Nosecone Height: 130m", "Drag Coefficient: 0.199699", "Angle: 42.07502205084364°"],
+    "/raketfotos/H140.png": ["Nosecone Height: 140m", "Drag Coefficient: 0.18714", "Angle: 39.307648116106606°"],
+    "/raketfotos/H200.png": ["Nosecone Height: 200m", "Drag Coefficient: 0.146356", "Angle: 28.072486935852936°"],
+    "/raketfotos/H300.png": ["Nosecone Height: 300m", "Drag Coefficient: 0.119736", "Angle: 18.924644416051223°"],
+    "/raketfotos/noseconeH30.png": ["Nosecone Height: 30m", "Drag Coefficient: 0.4783134", "d: 30.62"],
+    "/raketfotos/noseconeH40.png": ["Nosecone Height: 40m", "Drag Coefficient: 0.4072725", "d: 40.82"],
+    "/raketfotos/noseconeH50.png": ["Nosecone Height: 50m", "Drag Coefficient: 0.3734961", "d: 51.03"],
+    "/raketfotos/noseconeH60.png": ["Nosecone Height: 60m", "Drag Coefficient: 0.3486993", "d: 61.24"],
+    "/raketfotos/noseconeH70.png": ["Nosecone Height: 70m", "Drag Coefficient: 0.3274902", "d: 71.44"],
+    "/raketfotos/noseconeH80.png": ["Nosecone Height: 80m", "Drag Coefficient: 0.3120851", "d: 81.65"],
+    "/raketfotos/noseconeH90.png": ["Nosecone Height: 90m", "Drag Coefficient: 0.2966058", "d: 91.86"],
+    "/raketfotos/noseconeH100.png": ["Nosecone Height: 100m", "Drag Coefficient: 0.2851792", "d: 102.06"],
+    "/raketfotos/noseconeH110.png": ["Nosecone Height: 110m", "Drag Coefficient: 0.2732204", "d: 112.27"],
+    "/raketfotos/noseconeH120.png": ["Nosecone Height: 120m", "Drag Coefficient: 0.2642031", "d: 122.47"],
+    "/raketfotos/noseconeH130.png": ["Nosecone Height: 130m", "Drag Coefficient: 0.2554076", "d: 132.68"],
+    "/raketfotos/noseconeH140.png": ["Nosecone Height: 140m", "Drag Coefficient: 0.2473420", "d: 142.89"],
+    "/raketfotos/noseconeH150.png": ["Nosecone Height: 150m", "Drag Coefficient: 0.2401075", "d: 153.09"],
+    "/raketfotos/noseconeH160.png": ["Nosecone Height: 160m", "Drag Coefficient: 0.2324484", "d: 163.30"],
+    "/raketfotos/noseconeH170.png": ["Nosecone Height: 170m", "Drag Coefficient: 0.2263531", "d: 173.51"],
+    "/raketfotos/noseconeH180.png": ["Nosecone Height: 180m", "Drag Coefficient: 0.2204913", "d: 183.71"],
+    "/raketfotos/noseconeH190.png": ["Nosecone Height: 190m", "Drag Coefficient: 0.2168202", "d: 193.92"],
+    "/raketfotos/noseconeH200.png": ["Nosecone Height: 200m", "Drag Coefficient: 0.2118401", "d: 204.12"],
+    "/raketfotos/noseconeH250.png": ["Nosecone Height: 250m", "Drag Coefficient: 0.1924960", "d: 255.16"],
+    "/raketfotos/noseconeH300.png": ["Nosecone Height: 300m", "Drag Coefficient: 0.1788653", "d: 306.19"]
+};
 
-    const currentImage = rocketElement.src.split('/').pop();
-    const rocketStats = stats[rocketElement.src] || ["Geen data beschikbaar"];
 
-    // Maak een lijst met stats en voeg toe aan de container
+    const currentImage = rocketElement.src.split('/').pop(); // Haalt alleen de bestandsnaam op
+    const rocketStats = stats[`/raketfotos/${currentImage}`] || ["Geen data beschikbaar"];
+
+    // Maak een lijst met stats en voeg deze toe aan de container
     const ul = document.createElement('ul');
     rocketStats.forEach((stat, index) => {
         const li = document.createElement('li');
@@ -318,6 +377,7 @@ function showRocketStats(rocketElement, statsContainer) {
     statsContainer.appendChild(ul);
     statsContainer.classList.remove('hidden'); // Maak zichtbaar
 }
+
 
 // Linker raket (Speler 1)
 const leftRocket = document.querySelector('.linkerkutkant .rocket');
