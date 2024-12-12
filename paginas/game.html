@@ -114,7 +114,7 @@
     <div class="background"></div>
 
     <nav>
-        <a href="../index.html" class="clean-button">Go to Home</a>
+        <a href="/animatiepagina/raket.html" class="clean-button">Kies je raket!</a>
     </nav>
 
     <p id="scoreBoard" style="position: fixed; bottom: 10px; right: 10px; font-size: 20px; color: white;">Scorebord</p>
@@ -127,6 +127,8 @@
     <button id="restartButton" onclick="restartGame()">Start opnieuw</button>
 
     <script>
+        let animationFrameId; // Om de requestAnimationFrame-ID op te slaan
+
         let timer = 0;
         let scorePlayer1 = 0;
         let scorePlayer2 = 0;
@@ -153,13 +155,6 @@
             document.getElementById("timer").innerText = "Tijd: " + timer;  // Werk de timer tekst bij
         }
     
-        const rockets = {
-            '/raketfotos/H30.png': 1, // Rocket 1 met snelheid 2
-            '/raketfotos/H40.png': 1.4, // Rocket 2 met snelheid 4
-            '/raketfotos/H50.png': 1.7, // Rocket 3 met snelheid 5
-            '/raketfotos/H60.png': 2, // Rocket 4 met snelheid 6
-            '/raketfotos/H70.png': 2.2,  // Rocket 5 met snelheid 7
-        };
     
         const canvas = document.getElementById("gameCanvas");
         const ctx = canvas.getContext("2d");
@@ -211,33 +206,35 @@
         }
     
         function gameLoop() {
-            if (!gameOver) {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
+    if (!gameOver) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-                // Teken de finishlijn
-                drawFinishLine();
+        // Teken de finishlijn
+        drawFinishLine();
 
-                // Teken raketten
-                if (player1Rocket) {
-                    ctx.drawImage(player1Rocket.image, player1Rocket.x, player1Rocket.y, 30, 45);
-                }
-
-                if (player2Rocket) {
-                    ctx.drawImage(player2Rocket.image, player2Rocket.x, player2Rocket.y, 30, 45);
-                }
-
-                // Teken obstakels
-                drawObstacles();
-
-                // Verwerk beweging en botsingen
-                handleMovement();
-                checkCollision();
-                checkRocketCollision();
-                checkWinner();
-
-                requestAnimationFrame(gameLoop);
-            }
+        // Teken raketten
+        if (player1Rocket) {
+            ctx.drawImage(player1Rocket.image, player1Rocket.x, player1Rocket.y, 30, 45);
         }
+
+        if (player2Rocket) {
+            ctx.drawImage(player2Rocket.image, player2Rocket.x, player2Rocket.y, 30, 45);
+        }
+
+        // Teken obstakels
+        drawObstacles();
+
+        // Verwerk beweging en botsingen
+        handleMovement();
+        checkCollision();
+        checkRocketCollision();
+        checkWinner();
+
+        // Sla de huidige animatie-ID op
+        animationFrameId = requestAnimationFrame(gameLoop);
+    }
+}
+
 
     
         function handleMovement() {
@@ -296,6 +293,7 @@
                     // Botsing met speler 1
                     player1Rocket = null; // Speler 1 kan niet meer bewegen
                     scorePlayer1 = 0; // Speler 1 krijgt 0 punten
+                    stopTimer();
                 }
 
                 if (player2Rocket && player2Rocket.x < obstacle.x + obstacle.width &&
@@ -304,6 +302,7 @@
                     // Botsing met speler 2
                     player2Rocket = null; // Speler 2 kan niet meer bewegen
                     scorePlayer2 = 0; // Speler 2 krijgt 0 punten
+                    stopTimer();
                 }
             });
         }
@@ -344,26 +343,30 @@
         }
     
         function restartGame() {
-            clearInterval(timerInterval);
-            timerStarted = false;
+    if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId); // Stop de vorige animatie
+    }
 
-            timer = 0;
-            document.getElementById("timer").innerText = "Tijd: " + timer;
-            scorePlayer1 = 0;
-            scorePlayer2 = 0;
+    clearInterval(timerInterval);
+    timerStarted = false;
 
-            gameOver = false;
-            keysPressed = {};
-            obstacles = [];
-            generateObstacles(); // Nieuwe obstakels genereren
-            loadRocketSelection();
-            document.getElementById("winner").innerText = "";
-            document.getElementById("restartButton").style.display = "none";
-            ctx.clearRect(0, 0, canvas.width, canvas.height); // Canvas schoonmaken
-            
-            
-            startGame();
-        }
+    timer = 0;
+    document.getElementById("timer").innerText = "Tijd: " + timer;
+    scorePlayer1 = 0;
+    scorePlayer2 = 0;
+
+    gameOver = false;
+    keysPressed = {};
+    obstacles = [];
+    generateObstacles(); // Nieuwe obstakels genereren
+    loadRocketSelection();
+    document.getElementById("winner").innerText = "";
+    document.getElementById("restartButton").style.display = "none";
+    ctx.clearRect(0, 0, canvas.width, canvas.height); // Canvas schoonmaken
+    
+    startGame();
+}
+
 
         function checkWinner() {
             if (player1Rocket && player1Rocket.y <= 0) {
