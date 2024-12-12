@@ -186,8 +186,7 @@
     left: 50%;
     transform: translateX(-50%); /* Centreer de stats-container horizontaal */
     width: 200px;
-    background-color: #f4f4f4;
-    border: 1px solid #ddd;
+    background-color: white;
     border-radius: 5px;
     padding: 15px;
     font-family: Arial, sans-serif;
@@ -231,7 +230,7 @@
     <div class="container">
         <!-- Linkerkutkant met raket, pijlen en knop -->
         <div class="linkerkutkant">
-            <input type="range" class="rocket-slider" min="0" max="29" step="1" value="0">
+            <input type="range" class="rocket-slider" min="0" max="33" step="1" value="0">
             <img class="rocket" src="/raketfotos/H30.png" alt="H30">
             <div class="button-container">
                 <button class="action-button">Selecteer je raket</button>
@@ -240,7 +239,7 @@
         </div>
             
         <div class="rechterkutkant">
-            <input type="range" class="rocket-slider" min="0" max="29" step="1" value="0">
+            <input type="range" class="rocket-slider" min="0" max="33" step="1" value="0">
             <img class="rocket" src="/raketfotos/H30.png" alt="H30">
             <div class="button-container">
                 <button class="action-button">Selecteer je raket</button>
@@ -254,41 +253,43 @@
     <script>
 // Raketgegevens met afbeeldingen en snelheden
 const rocketData = [
-    { src: "/raketfotos/H30.png", speed: 1 },
-    { src: "/raketfotos/H40.png", speed: 1.4 },
-    { src: "/raketfotos/H50.png", speed: 1.7 },
-    { src: "/raketfotos/H60.png", speed: 2 },
-    { src: "/raketfotos/H70.png", speed: 2.2 },
-    { src: "/raketfotos/H80.png", speed: 2.5 },
-    { src: "/raketfotos/H90.png", speed: 2.7 },
-    { src: "/raketfotos/H100.png", speed: 3 },
-    { src: "/raketfotos/H110.png", speed: 3.2 },
-    { src: "/raketfotos/H120.png", speed: 3.5 },
-    { src: "/raketfotos/H130.png", speed: 3.7 },
-    { src: "/raketfotos/H140.png", speed: 4 },
-    { src: "/raketfotos/H200.png", speed: 4.5 },
-    { src: "/raketfotos/H300.png", speed: 5 },
-    { src: "/raketfotos/noseconeH30.png", speed: 1.1 },
-    { src: "/raketfotos/noseconeH40.png", speed: 1.3 },
-    { src: "/raketfotos/noseconeH50.png", speed: 1.6 },
-    { src: "/raketfotos/noseconeH60.png", speed: 1.9 },
-    { src: "/raketfotos/noseconeH70.png", speed: 2.1 },
-    { src: "/raketfotos/noseconeH80.png", speed: 2.4 },
-    { src: "/raketfotos/noseconeH90.png", speed: 2.6 },
-    { src: "/raketfotos/noseconeH100.png", speed: 2.9 },
-    { src: "/raketfotos/noseconeH110.png", speed: 3.1 },
-    { src: "/raketfotos/noseconeH120.png", speed: 3.4 },
-    { src: "/raketfotos/noseconeH130.png", speed: 3.6 },
-    { src: "/raketfotos/noseconeH140.png", speed: 3.9 },
-    { src: "/raketfotos/noseconeH150.png", speed: 4.1 },
-    { src: "/raketfotos/noseconeH160.png", speed: 4.3 },
-    { src: "/raketfotos/noseconeH170.png", speed: 4.6 },
-    { src: "/raketfotos/noseconeH180.png", speed: 4.8 },
-    { src: "/raketfotos/noseconeH190.png", speed: 5 },
-    { src: "/raketfotos/noseconeH200.png", speed: 5.2 },
-    { src: "/raketfotos/noseconeH250.png", speed: 5.5 },
-    { src: "/raketfotos/noseconeH300.png", speed: 5.8 },
+    { src: "/raketfotos/H30.png", speed: 0.2 },
+    { src: "/raketfotos/H40.png", speed: 0.22 },
+    { src: "/raketfotos/H50.png", speed: 0.25 },
+    { src: "/raketfotos/H60.png", speed: 0.28 },
+    { src: "/raketfotos/H70.png", speed: 0.33 },
+    { src: "/raketfotos/H80.png", speed: 0.4 },
+    { src: "/raketfotos/H90.png", speed: 0.48 },
+    { src: "/raketfotos/H100.png", speed: 0.54 },
+    { src: "/raketfotos/H110.png", speed: 0.59 },
+    { src: "/raketfotos/H120.png", speed: 0.63 },
+    { src: "/raketfotos/H130.png", speed: 0.67 },
+    { src: "/raketfotos/H140.png", speed: 0.7 },
+    { src: "/raketfotos/H200.png", speed: 0.83 },
+    { src: "/raketfotos/H300.png", speed: 1 },
+    { src: "/raketfotos/noseconeH30.png", speed: 0.42 },
+    { src: "/raketfotos/noseconeH40.png", speed: 0.46 },
+    { src: "/raketfotos/noseconeH50.png", speed: 0.49 },
+    { src: "/raketfotos/noseconeH60.png", speed: 0.52 },
+    { src: "/raketfotos/noseconeH70.png", speed: 0.54 },
+    { src: "/raketfotos/noseconeH80.png", speed: 0.56 },
+    { src: "/raketfotos/noseconeH90.png", speed: 0.58 },
+    { src: "/raketfotos/noseconeH100.png", speed: 0.6 },
+    { src: "/raketfotos/noseconeH110.png", speed: 0.63 },
+    { src: "/raketfotos/noseconeH120.png", speed: 0.65 },
+    { src: "/raketfotos/noseconeH130.png", speed: 0.68 },
+    { src: "/raketfotos/noseconeH140.png", speed: 0.7 },
+    { src: "/raketfotos/noseconeH150.png", speed: 0.72 },
+    { src: "/raketfotos/noseconeH160.png", speed: 0.74 },
+    { src: "/raketfotos/noseconeH170.png", speed: 0.77 },
+    { src: "/raketfotos/noseconeH180.png", speed: 0.8 },
+    { src: "/raketfotos/noseconeH190.png", speed: 0.83 },
+    { src: "/raketfotos/noseconeH200.png", speed: 0.86 },
+    { src: "/raketfotos/noseconeH250.png", speed: 0.94 },
+    { src: "/raketfotos/noseconeH300.png", speed: 1 }
 ];
+
+    
 
 
 // Functie om de afbeelding te veranderen met de slider
